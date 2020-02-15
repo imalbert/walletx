@@ -9,6 +9,9 @@ import { useTheme, Portal, FAB } from 'react-native-paper'
 import { createDrawerNavigator, useIsDrawerOpen, DrawerNavigationProp } from '@react-navigation/drawer'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import { RecordsList } from './app/components/RecordsList'
+import { RecordForm } from './app/components/RecordForm'
+
 const Drawer = createDrawerNavigator()
 
 const Wallet = () => {
@@ -25,7 +28,7 @@ const Records = ({ navigation }) => {
   return (
     <>
     <View style={styles.container}>
-      <Text>Transaction Records</Text>
+      <RecordsList />
     </View>
     <Portal>
       {showFAB && <FAB
@@ -92,7 +95,11 @@ const StackNavigator = () => {
     </Stack.Navigator>
   )
 }
-const RecordActions = () => <Text>Record actions</Text>
+const RecordActions = () => (
+  <View style={styles.container}>
+    <RecordForm />
+  </View>
+)
 
 const RootNavigator = () => {
   return (
@@ -115,10 +122,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  container: { flex: 1, }
 });
