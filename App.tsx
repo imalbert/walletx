@@ -1,12 +1,13 @@
 import React from 'react'
 
-import { Provider as PaperProvider } from 'react-native-paper'
+import { Provider as PaperProvider, Appbar } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 
-import { StyleSheet, Text, View } from 'react-native'
-import { Portal, FAB } from 'react-native-paper'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { useTheme, Portal, FAB } from 'react-native-paper'
 
-import { createDrawerNavigator, useIsDrawerOpen } from '@react-navigation/drawer'
+import { createDrawerNavigator, useIsDrawerOpen, DrawerNavigationProp } from '@react-navigation/drawer'
+import { createStackNavigator } from '@react-navigation/stack'
 
 const Drawer = createDrawerNavigator()
 
@@ -18,7 +19,7 @@ const Wallet = () => {
   )
 }
 
-const Records = () => {
+const Records = ({ navigation }) => {
   const showFAB = !useIsDrawerOpen()
 
   return (
@@ -34,19 +35,71 @@ const Records = () => {
           bottom: 16,
           right: 16,
         }}
+        onPress={() => navigation.navigate('RecordActions')}
       />}
     </Portal>
     </>
   )
 }
 
+const Stack = createStackNavigator()
+
+const StackNavigator = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="Wallet"
+      headerMode="screen"
+      screenOptions={{
+        header: ({ scene, previous, navigation }) => {
+          const { options } = scene.descriptor
+          const title =
+            options.headerTitle !== undefined
+              ? options.headerTitle
+              : options.title !== undefined
+              ? options.title
+              : scene.route.name
+          
+          return (
+            <Appbar.Header>
+              <Appbar.Content title={title} titleStyle={{ fontSize: 18, fontWeight: 'bold' }} />
+              {previous ? (
+                <Appbar.Action icon="close" onPress={navigation.goBack} />
+              ) : (
+                <TouchableOpacity
+                  style={{ marginLeft: 10 }}
+                  onPress={() => {
+                    ((navigation as any) as DrawerNavigationProp<{}>).openDrawer()
+                  }}
+                >
+                  <Text>
+                    open drawer
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </Appbar.Header>
+          )
+        }
+      }}
+    >
+      <Stack.Screen
+        name="Records"
+        component={Records}
+        options={{ headerTitle: 'Records' }} />
+      <Stack.Screen
+        name="RecordActions"
+        component={RecordActions}
+        options={{ headerTitle: 'Actions' }} />
+    </Stack.Navigator>
+  )
+}
+const RecordActions = () => <Text>Record actions</Text>
+
 const RootNavigator = () => {
   return (
     <>
-    <Drawer.Navigator drawerContent={() => <Wallet />}>
-      <Drawer.Screen name="Records" component={Records} />
+    <Drawer.Navigator drawerType="slide" drawerPosition="right" drawerContent={() => <Wallet />}>
+      <Drawer.Screen name="Stack" component={StackNavigator} />
     </Drawer.Navigator>
-    
     </>
   )
 }
