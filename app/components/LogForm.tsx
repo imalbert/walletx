@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { TextInput } from 'react-native-paper'
+import { TextInput, Button } from 'react-native-paper'
 
 export function RecordForm() {
   return (
@@ -14,6 +14,9 @@ export function RecordForm() {
       value="Food"
       onChangeText={text => {}}
     />
+    <Button>
+      Save
+    </Button>
     </>
   )
 }

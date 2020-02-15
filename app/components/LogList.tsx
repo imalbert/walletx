@@ -6,7 +6,6 @@ export function RecordsList () {
     <>
     <Record />
     <Record />
-    <Record />
     </>
   )
 }
@@ -19,6 +18,8 @@ export function Record() {
         <DataTable.Title numeric>Amount</DataTable.Title>
       </DataTable.Header>
 
+      <RecordItem />
+      <RecordItem />
       <RecordItem />
     </DataTable>
   )
