@@ -1,20 +1,34 @@
-import * as React from 'react'
+import React, { useState } from 'react'
+
 import { TextInput, Button } from 'react-native-paper'
 
-export function RecordForm() {
+export function LogForm() {
+  const [amt, setAmt] = useState(0)
+  const [cat, setCat] = useState('Food')
+  const [date, setDate] = useState(new Date())
+  const onButtonPress = () => {
+    console.info('save form')
+  }
+
   return (
     <>
     <TextInput
       label="Amount"
-      value="0.00"
-      onChangeText={text => {}}
+      keyboardType="numeric"
+      value={amt.toString()}
+      onChangeText={text => setAmt(parseInt(text))}
     />
     <TextInput
       label="Category"
-      value="Food"
-      onChangeText={text => {}}
+      value={cat}
+      onChangeText={text => setCat(text)}
     />
-    <Button>
+    <TextInput
+      label="Date"
+      value={date.toTimeString()}
+      onChangeText={() => new Date()}
+    />
+    <Button icon="save" onPress={onButtonPress}>
       Save
     </Button>
     </>
