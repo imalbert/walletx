@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Log Model actions can update a log 1`] = `
+Object {
+  "amount": 999,
+  "category": "HOUSEHOLD",
+  "date": 1581819204152,
+  "type": "INCOME",
+}
+`;
+
+exports[`Log Model actions can update a log 2`] = `
+Array [
+  Object {
+    "op": "replace",
+    "path": "/amount",
+    "value": 999,
+  },
+  Object {
+    "op": "replace",
+    "path": "/category",
+    "value": "HOUSEHOLD",
+  },
+  Object {
+    "op": "replace",
+    "path": "/date",
+    "value": 1581819204152,
+  },
+  Object {
+    "op": "replace",
+    "path": "/type",
+    "value": "INCOME",
+  },
+]
+`;
+
+exports[`Log Model can create an instance 1`] = `
+Object {
+  "amount": 500,
+  "category": "FOOD",
+  "date": 1581819204151,
+  "type": "EXPENSE",
+}
+`;
+
+exports[`Records Model actions can record a log 1`] = `
+Array [
+  Object {
+    "op": "add",
+    "path": "/logs/0",
+    "value": Object {
+      "amount": 500,
+      "category": "FOOD",
+      "date": 1581819204151,
+      "type": "EXPENSE",
+    },
+  },
+  Object {
+    "op": "replace",
+    "path": "/balance",
+    "value": 500,
+  },
+  Object {
+    "op": "add",
+    "path": "/logs/1",
+    "value": Object {
+      "amount": 500,
+      "category": "FOOD",
+      "date": 1581819204151,
+      "type": "INCOME",
+    },
+  },
+  Object {
+    "op": "replace",
+    "path": "/balance",
+    "value": 1000,
+  },
+]
+`;
+
+exports[`Records Model actions can remove all logs 1`] = `
+Array [
+  Object {
+    "op": "add",
+    "path": "/logs/0",
+    "value": Object {
+      "amount": 500,
+      "category": "FOOD",
+      "date": 1581819204151,
+      "type": "EXPENSE",
+    },
+  },
+  Object {
+    "op": "replace",
+    "path": "/balance",
+    "value": 500,
+  },
+  Object {
+    "op": "add",
+    "path": "/logs/1",
+    "value": Object {
+      "amount": 500,
+      "category": "FOOD",
+      "date": 1581819204151,
+      "type": "EXPENSE",
+    },
+  },
+  Object {
+    "op": "replace",
+    "path": "/balance",
+    "value": 0,
+  },
+  Object {
+    "op": "replace",
+    "path": "/balance",
+    "value": 500,
+  },
+  Object {
+    "op": "remove",
+    "path": "/logs/0",
+  },
+  Object {
+    "op": "replace",
+    "path": "/balance",
+    "value": 1000,
+  },
+  Object {
+    "op": "remove",
+    "path": "/logs/0",
+  },
+]
+`;
+
+exports[`Records Model can create a log record with defaults 1`] = `
+Object {
+  "account": "CASH_IN_HAND",
+  "balance": 0,
+  "logs": Array [],
+}
+`;
+
+exports[`Records Model can create a log record with defaults 2`] = `
+Object {
+  "account": "CASH_IN_HAND",
+  "balance": 1000,
+  "logs": Array [
+    Object {
+      "amount": 500,
+      "category": "FOOD",
+      "date": 1581819204151,
+      "type": "EXPENSE",
+    },
+  ],
+}
+`;
