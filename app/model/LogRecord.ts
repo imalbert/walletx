@@ -3,7 +3,6 @@ import {
   getParent,
   destroy,
   Instance,
-  SnapshotIn,
 } from 'mobx-state-tree'
 
 export enum LOG_TYPES { EXPENSE = 'EXPENSE', INCOME = 'INCOME' }
@@ -13,10 +12,10 @@ export enum RECORD_ACTIONS { ADD = 'RECORD_ADD', RM = 'RECORD_RM' }
 
 export const Log = types.model('Log')
   .props({
-    amount: types.number,
-    category: types.string,
-    date: types.Date,
-    type: types.string,
+    amount: types.optional(types.number, 0),
+    category: types.optional(types.string, LOG_CATEGORY.FOOD),
+    date: types.optional(types.Date, new Date()),
+    type: types.optional(types.string, LOG_TYPES.EXPENSE),
   })
   .views(self => ({}))
   .actions(self => ({
@@ -33,8 +32,8 @@ export const Log = types.model('Log')
 
 const isExpense = (log: LogModelType) => log.type === LOG_TYPES.EXPENSE
 const calcBalance = (
-  log:     LogModelType, 
-  balance: number, 
+  log:     LogModelType,
+  balance: number,
   action:  RECORD_ACTIONS): number => {
   switch(action) {
     case RECORD_ACTIONS.ADD: {
@@ -58,6 +57,12 @@ export const Record = types.model('Record')
     balance: types.optional(types.number, 0),
     logs: types.optional(types.array(Log), []),
   })
+  .views(self => ({
+    // TODO NEXT
+    get logsByDay() {
+      return []
+    }
+  }))
   .actions(self => {
     return {
       add(log: LogModelType) {

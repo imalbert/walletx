@@ -1,10 +1,10 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { LogForm } from '../components/LogForm'
+import { LogFormAdd } from '../components/LogFormAdd'
 
 export const WalletActions = () => (
   <View style={{ flex: 1 }}>
-    <LogForm />
+    <LogFormAdd />
   </View>
 )

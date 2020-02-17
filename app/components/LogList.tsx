@@ -1,20 +1,30 @@
 import * as React from 'react'
-import { DataTable } from 'react-native-paper'
+import { observer } from 'mobx-react'
 
-export function RecordsList () {
+import { DataTable } from 'react-native-paper'
+import { useStore } from '../model/Root'
+import { LogModelType } from '../model/LogRecord'
+
+interface LogListProps {}
+
+export const LogList: React.FC<LogListProps> = observer(() => {
+  const { record } = useStore()
+  console.log(record.logs)
+
   return (
     <>
-    <Record />
-    <Record />
+    {record.logs.map((log, idx) => (
+      <LogItem log={log} key={`log-item-${idx}`} />
+    ))}
     </>
   )
-}
+})
 
-export function Record() {
+const RecordItem = () => {
   return (
     <DataTable>
       <DataTable.Header>
-        <DataTable.Title>Feb 15</DataTable.Title>
+        <DataTable.Title>Date</DataTable.Title>
         <DataTable.Title numeric>Amount</DataTable.Title>
       </DataTable.Header>
 
@@ -25,9 +35,13 @@ export function Record() {
   )
 }
 
-const RecordItem = () => (
+interface LogItemProps {
+  log: LogModelType
+}
+
+export const LogItem: React.FC<LogItemProps> = ({ log }) => (
   <DataTable.Row>
-    <DataTable.Cell>Dessert</DataTable.Cell>
-    <DataTable.Cell numeric>1.00</DataTable.Cell>
+    <DataTable.Cell>{log.category}</DataTable.Cell>
+    <DataTable.Cell numeric>{log.amount}</DataTable.Cell>
   </DataTable.Row>
 )

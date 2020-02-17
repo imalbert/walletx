@@ -1,36 +1,32 @@
 import React, { useState } from 'react'
+import { observer } from 'mobx-react'
 
-import { TextInput, Button } from 'react-native-paper'
+import { TextInput } from 'react-native-paper'
+import { LogModelType, LOG_CATEGORY } from '../model/LogRecord'
 
-export function LogForm() {
-  const [amt, setAmt] = useState(0)
-  const [cat, setCat] = useState('Food')
-  const [date, setDate] = useState(new Date())
-  const onButtonPress = () => {
-    console.info('save form')
-  }
+interface Props {
+  log: LogModelType,
+}
 
+export const LogForm: React.FC<Props> = observer(({ log }) => {
   return (
     <>
     <TextInput
       label="Amount"
       keyboardType="numeric"
-      value={amt.toString()}
-      onChangeText={text => setAmt(parseInt(text))}
+      value={log.amount.toString()}
+      onChangeText={text => { log.changeAmount(parseInt(text)) }}
     />
     <TextInput
       label="Category"
-      value={cat}
-      onChangeText={text => setCat(text)}
+      value={log.category}
+      onChangeText={text => log.changeCategory(LOG_CATEGORY[text])}
     />
     <TextInput
       label="Date"
-      value={date.toTimeString()}
+      value={new Date().toTimeString()}
       onChangeText={() => new Date()}
     />
-    <Button icon="save" onPress={onButtonPress}>
-      Save
-    </Button>
     </>
   )
-}
+})

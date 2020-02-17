@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native'
 import { Portal, FAB } from 'react-native-paper'
 import { useIsDrawerOpen } from '@react-navigation/drawer'
 
-import { RecordsList } from '../components/LogList'
+import { LogList } from '../components/LogList'
 
 export const WalletLogs = ({ navigation }) => {
   const showFAB = !useIsDrawerOpen()
@@ -12,7 +12,7 @@ export const WalletLogs = ({ navigation }) => {
   return (
     <>
     <ScrollView style={{ flex: 1 }}>
-      <RecordsList />
+      <LogList />
     </ScrollView>
     <Portal>
       {showFAB && <FAB
