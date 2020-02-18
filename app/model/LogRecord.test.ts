@@ -11,6 +11,7 @@ import {
   RECORD_ACCOUNT,
   RecordModelType,
 } from './LogRecord'
+import { autorun, reaction } from 'mobx'
 
 const DEFAULT_DATE = new Date(1581819204151)
 const DEFAULT_BALANCE = 1000
@@ -27,21 +28,21 @@ const buildLogObj = (overrides?): LogModelType => ({
 })
 
 describe('Log Model', () => {
-  
+
   it('can create an instance', () => {
     const log = Log.create(buildLogObj())
-    
+
     expect(getSnapshot(log)).toMatchSnapshot()
   })
-  
+
   describe('actions', () => {
     let log: LogModelType
     let patches: Array<IJsonPatch>
-  
+
     beforeEach(() => {
       patches = []
       log = Log.create(buildLogObj())
-  
+
       onPatch(log, snapshot => patches.push(snapshot))
     })
     afterEach(() => { expect(patches).toMatchSnapshot() })
@@ -71,6 +72,43 @@ describe('Records Model', () => {
     })
 
     expect(getSnapshot(record_with_props)).toMatchSnapshot()
+  })
+
+  describe('views', () => {
+    test('getLogsByMonth to return array of logs by month & year', () => {
+      let logsByMonth = []
+      const record = Record.create({})
+      autorun(() => {
+        logsByMonth = record.getLogsByMonth(new Date(2020, 1, 20)) // February 2020
+        console.log(logsByMonth)
+      })
+
+      record.add(Log.create({ amount: 1, date: new Date('February 1, 2020 03:24:00') }))
+      record.add(Log.create({ amount: 2, date: new Date('January 1, 2020 03:24:00') }))
+      record.add(Log.create({ amount: 3, date: new Date(2020, 1, 1) }))
+      record.add(Log.create({ amount: 4, date: new Date(2020, 2, 1) }))
+      record.add(Log.create({ amount: 5, date: new Date(2021, 8, 10) }))
+      record.add(Log.create({ amount: 6, date: new Date(2020, 1, 14) }))
+      // expect 1, 3, 6 (February and 2020)
+
+      expect(getSnapshot(record)).toMatchSnapshot()
+      expect(logsByMonth).toMatchSnapshot()
+    })
+
+    test('getLogsByDayOfMonth to return map of logs with (month + day) as property', () => {
+      const record = Record.create({})
+
+      record.add(Log.create({ amount: 1, date: new Date('February 1, 2020 03:24:00') }))
+      record.add(Log.create({ amount: 2, date: new Date('January 1, 2020 03:24:00') }))
+      record.add(Log.create({ amount: 3, date: new Date(2020, 1, 1) }))
+      record.add(Log.create({ amount: 4, date: new Date(2020, 2, 1) }))
+      record.add(Log.create({ amount: 5, date: new Date(2021, 8, 10) }))
+      record.add(Log.create({ amount: 6, date: new Date(2020, 1, 14) }))
+
+      expect(record.getLogsByDayOfMonth(new Date(2020, 1, 1))).toMatchSnapshot()
+      expect(record.getLogsByDayOfMonth(new Date(2021, 8, 1))).toMatchSnapshot()
+      expect(record.getLogsByDayOfMonth(new Date(2020, 2, 1))).toMatchSnapshot()
+    })
   })
 
   describe('actions', () => {

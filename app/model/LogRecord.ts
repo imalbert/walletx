@@ -55,12 +55,35 @@ export const Record = types.model('Record')
   .props({
     account: types.optional(types.string, RECORD_ACCOUNT.CASH_IN_HAND),
     balance: types.optional(types.number, 0),
-    logs: types.optional(types.array(Log), []),
+    logs: types.array(Log),
   })
   .views(self => ({
-    // TODO NEXT
-    get logsByDay() {
-      return []
+    getLogsByMonth(today: Date = new Date()) {
+      const monthNow = today.getMonth()
+      const yearNow = today.getFullYear()
+
+      return self.logs.filter(item => (
+        item.date.getMonth() === monthNow
+        && item.date.getFullYear() === yearNow
+      ))
+    },
+  }))
+  .views(self => ({
+    getLogsByDayOfMonth(today: Date = new Date()) {
+      const logs = self.getLogsByMonth(today)
+
+      return logs.reduce((coll, item) => {
+        const options = { month: 'short', day: 'numeric' }
+        const prop = item.date.toLocaleDateString('en-US', options)
+
+        if (coll[prop]) {
+          coll[prop].push(item)
+        } else {
+          coll[prop] = [item]
+        }
+
+        return coll
+      }, {})
     }
   }))
   .actions(self => {

@@ -153,3 +153,124 @@ Object {
   ],
 }
 `;
+
+exports[`Records Model views getLogsByDayOfMonth to return map of logs with (month + day) as property 1`] = `
+Object {
+  "Feb 1": Array [
+    Object {
+      "amount": 1,
+      "category": "FOOD",
+      "date": 1580498640000,
+      "type": "EXPENSE",
+    },
+    Object {
+      "amount": 3,
+      "category": "FOOD",
+      "date": 1580486400000,
+      "type": "EXPENSE",
+    },
+  ],
+  "Feb 14": Array [
+    Object {
+      "amount": 6,
+      "category": "FOOD",
+      "date": 1581609600000,
+      "type": "EXPENSE",
+    },
+  ],
+}
+`;
+
+exports[`Records Model views getLogsByDayOfMonth to return map of logs with (month + day) as property 2`] = `
+Object {
+  "Sep 10": Array [
+    Object {
+      "amount": 5,
+      "category": "FOOD",
+      "date": 1631203200000,
+      "type": "EXPENSE",
+    },
+  ],
+}
+`;
+
+exports[`Records Model views getLogsByDayOfMonth to return map of logs with (month + day) as property 3`] = `
+Object {
+  "Mar 1": Array [
+    Object {
+      "amount": 4,
+      "category": "FOOD",
+      "date": 1582992000000,
+      "type": "EXPENSE",
+    },
+  ],
+}
+`;
+
+exports[`Records Model views getLogsByMonth to return array of logs by month & year 1`] = `
+Object {
+  "account": "CASH_IN_HAND",
+  "balance": -21,
+  "logs": Array [
+    Object {
+      "amount": 1,
+      "category": "FOOD",
+      "date": 1580498640000,
+      "type": "EXPENSE",
+    },
+    Object {
+      "amount": 2,
+      "category": "FOOD",
+      "date": 1577820240000,
+      "type": "EXPENSE",
+    },
+    Object {
+      "amount": 3,
+      "category": "FOOD",
+      "date": 1580486400000,
+      "type": "EXPENSE",
+    },
+    Object {
+      "amount": 4,
+      "category": "FOOD",
+      "date": 1582992000000,
+      "type": "EXPENSE",
+    },
+    Object {
+      "amount": 5,
+      "category": "FOOD",
+      "date": 1631203200000,
+      "type": "EXPENSE",
+    },
+    Object {
+      "amount": 6,
+      "category": "FOOD",
+      "date": 1581609600000,
+      "type": "EXPENSE",
+    },
+  ],
+}
+`;
+
+exports[`Records Model views getLogsByMonth to return array of logs by month & year 2`] = `
+Array [
+  Object {
+    "amount": 1,
+    "category": "FOOD",
+    "date": 1580498640000,
+    "type": "EXPENSE",
+  },
+  Object {
+    "amount": 3,
+    "category": "FOOD",
+    "date": 1580486400000,
+    "type": "EXPENSE",
+  },
+  Object {
+    "amount": 6,
+    "category": "FOOD",
+    "date": 1581609600000,
+    "type": "EXPENSE",
+  },
+]
+`;
