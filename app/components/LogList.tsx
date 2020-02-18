@@ -9,7 +9,6 @@ interface LogListProps {}
 
 export const LogList: React.FC<LogListProps> = observer(() => {
   const { record } = useStore()
-  console.log(record.logs)
 
   return (
     <>
@@ -31,7 +30,7 @@ export const RecordLogs = observer(() => {
   return (
     <>
     {days.map(day => (
-      <DataTable>
+      <DataTable key={day}>
         <DataTable.Header>
           <DataTable.Title>{day}</DataTable.Title>
           <DataTable.Title numeric>Amount</DataTable.Title>
@@ -44,21 +43,6 @@ export const RecordLogs = observer(() => {
     </>
   )
 })
-
-const RecordItem = () => {
-  return (
-    <DataTable>
-      <DataTable.Header>
-        <DataTable.Title>Date</DataTable.Title>
-        <DataTable.Title numeric>Amount</DataTable.Title>
-      </DataTable.Header>
-
-      <RecordItem />
-      <RecordItem />
-      <RecordItem />
-    </DataTable>
-  )
-}
 
 interface LogItemProps {
   log: LogModelType

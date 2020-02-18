@@ -55,7 +55,7 @@ export const Record = types.model('Record')
   .props({
     account: types.optional(types.string, RECORD_ACCOUNT.CASH_IN_HAND),
     balance: types.optional(types.number, 0),
-    logs: types.array(Log),
+    logs: types.optional(types.array(Log), []),
   })
   .views(self => ({
     getLogsByMonth(today: Date = new Date()) {
