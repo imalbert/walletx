@@ -1,9 +1,12 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
 
-import { DataTable } from 'react-native-paper'
+import { DataTable, Button } from 'react-native-paper'
 import { useStore } from '../model/Root'
 import { LogModelType } from '../model/LogRecord'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 interface LogListProps {}
 
@@ -25,7 +28,7 @@ export const RecordLogs = observer(() => {
   const days = Object.keys(logsByDay).sort()
 
   // QUESTION: why is days in "MM/DD/YY" format when i saved it as "MMM DD"?
-  // console.log(logsByDay)
+  console.log('new log added', logsByDay)
 
   return (
     <>
@@ -48,9 +51,28 @@ interface LogItemProps {
   log: LogModelType
 }
 
-export const LogItem: React.FC<LogItemProps> = ({ log }) => (
-  <DataTable.Row>
-    <DataTable.Cell>{log.category}</DataTable.Cell>
-    <DataTable.Cell numeric>{log.amount}</DataTable.Cell>
-  </DataTable.Row>
-)
+export const LogItem: React.FC<LogItemProps> = observer(({ log }) => {
+  const [isEditing, changeIsEditing] = React.useState(false)
+  const navigation = useNavigation()
+
+  return (
+    <>
+      <TouchableWithoutFeedback
+        onPress={() => changeIsEditing(false)}
+        onLongPress={() => changeIsEditing(true)}>
+      <DataTable.Row>
+        <DataTable.Cell>{log.category}</DataTable.Cell>
+        <DataTable.Cell numeric>{log.amount}</DataTable.Cell>
+      </DataTable.Row>
+      </TouchableWithoutFeedback>
+
+      {isEditing &&
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <Button onPress={() => changeIsEditing(false)}>Cancel</Button>
+        <Button onPress={() => { log.remove() }}>Remove</Button>
+        <Button onPress={() => { navigation.navigate('WalletActions', { log }) }}>Edit</Button>
+      </View>
+      }
+    </>
+  )
+})

@@ -17,12 +17,8 @@ export const WalletLogs = ({ navigation }) => {
     <Portal>
       {showFAB && <FAB
         icon="feather"
-        style={{
-          position: 'absolute',
-          bottom: 16,
-          right: 16,
-        }}
-        onPress={() => navigation.navigate('RecordActions')}
+        style={{ position: 'absolute', bottom: 16, right: 16 }}
+        onPress={() => navigation.navigate('WalletActions')}
       />}
     </Portal>
     </>

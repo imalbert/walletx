@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import { WalletLogs } from '../screens/WalletLogs'
 import { WalletActions } from '../screens/WalletActions'
+import { DrawerNavigationProp } from '@react-navigation/drawer'
 
 const Stack = createStackNavigator()
 
@@ -22,7 +23,7 @@ export const StackNavigator = () => {
               : options.title !== undefined
               ? options.title
               : scene.route.name
-          
+
           return (
             <Appbar.Header>
               <Appbar.Content title={title} titleStyle={{ fontSize: 18, fontWeight: 'bold' }} />
@@ -48,11 +49,14 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="My Wallet"
         component={WalletLogs}
-        options={{ headerTitle: 'My Wallet' }} />
+        options={{ headerTitle: 'My Wallet' }}
+      />
       <Stack.Screen
-        name="RecordActions"
+        name="WalletActions"
         component={WalletActions}
-        options={{ headerTitle: 'Actions' }} />
+        options={{ headerTitle: 'Actions' }}
+        initialParams={{ route: {} }}
+      />
     </Stack.Navigator>
   )
 }
