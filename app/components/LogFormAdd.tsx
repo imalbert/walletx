@@ -4,16 +4,19 @@ import { Log } from '../model/LogRecord'
 import { LogForm } from './LogForm'
 import { useStore } from '../model/Root'
 import { Button } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 
 interface Props {
 }
 
 export const LogFormAdd: React.FC<Props> = () => {
-  const [newLog, resetLog] = useState(Log.create())
   const { record } = useStore()
+  const navigation = useNavigation()
+  const [newLog] = useState(Log.create())
+
   const onAdd = () => {
     record.add(newLog)
-    resetLog(Log.create())
+    navigation.goBack()
   }
 
   return (

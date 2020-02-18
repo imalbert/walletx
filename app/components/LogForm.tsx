@@ -14,7 +14,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
     <TextInput
       label="Amount"
       keyboardType="numeric"
-      value={log.amount.toString()}
+      value={isNaN(log.amount) ? "0" : log.amount.toString()}
       onChangeText={text => { log.changeAmount(parseInt(text)) }}
     />
     <TextInput
