@@ -80,7 +80,6 @@ describe('Records Model', () => {
       const record = Record.create({})
       autorun(() => {
         logsByMonth = record.getLogsByMonth(new Date(2020, 1, 20)) // February 2020
-        console.log(logsByMonth)
       })
 
       record.add(Log.create({ amount: 1, date: new Date('February 1, 2020 03:24:00') }))

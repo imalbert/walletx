@@ -20,6 +20,31 @@ export const LogList: React.FC<LogListProps> = observer(() => {
   )
 })
 
+export const RecordLogs = observer(() => {
+  const { record } = useStore()
+  const logsByDay = record.getLogsByDayOfMonth()
+  const days = Object.keys(logsByDay).sort()
+
+  // QUESTION: why is days in "MM/DD/YY" format when i saved it as "MMM DD"?
+  // console.log(logsByDay)
+
+  return (
+    <>
+    {days.map(day => (
+      <DataTable>
+        <DataTable.Header>
+          <DataTable.Title>{day}</DataTable.Title>
+          <DataTable.Title numeric>Amount</DataTable.Title>
+        </DataTable.Header>
+        {logsByDay[day].map((log, idx) => (
+          <LogItem log={log} key={`log-item-${idx}`} />
+        ))}
+      </DataTable>
+    ))}
+    </>
+  )
+})
+
 const RecordItem = () => {
   return (
     <DataTable>
