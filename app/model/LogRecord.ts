@@ -6,7 +6,18 @@ import {
 } from 'mobx-state-tree'
 
 export enum LOG_TYPES { EXPENSE = 'EXPENSE', INCOME = 'INCOME' }
-export enum LOG_CATEGORY { FOOD = 'FOOD', HOUSEHOLD = 'HOUSEHOLD' }
+export enum LOG_CATEGORY {
+  FOOD      = 'FOOD',
+  HOUSEHOLD = 'HOUSEHOLD',
+  TRANSPORT = 'TRANSPORT',
+  HEALTH    = 'HEALTH',
+  APPAREL   = 'APPAREL',
+  SOCIAL    = 'SOCIAL',
+  EDUCATION = 'EDUCATION',
+  GIFT      = 'GIFT',
+  OTHER     = 'OTHER',
+  INCOME    = 'INCOME',
+}
 export enum RECORD_ACCOUNT { CASH_IN_HAND = 'CASH_IN_HAND' }
 export enum RECORD_ACTIONS { ADD = 'RECORD_ADD', RM = 'RECORD_RM' }
 
@@ -17,14 +28,26 @@ export const Log = types.model('Log')
     date: types.optional(types.Date, new Date()),
     type: types.optional(types.string, LOG_TYPES.EXPENSE),
   })
-  .views(self => ({}))
+  .views(self => ({
+    get isExpense() {
+      return self.type === LOG_TYPES.EXPENSE
+    },
+    get isIncome() {
+      return self.type === LOG_TYPES.INCOME
+    },
+  }))
   .actions(self => ({
     changeAmount(newAmount: number) { self.amount = newAmount },
     changeCategory(newCategory: LOG_CATEGORY) {
       self.category = newCategory
     },
     changeDate(newDate: Date) { self.date = newDate },
-    changeType(newType: LOG_TYPES) { self.type = newType },
+    changeType(newType: LOG_TYPES) {
+      self.type = newType
+      self.category = self.isIncome
+        ? LOG_CATEGORY.INCOME
+        : LOG_CATEGORY.FOOD
+    },
     remove() {
       getParent(self, 2).remove(self)
     }
