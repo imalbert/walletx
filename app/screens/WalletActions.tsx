@@ -10,8 +10,7 @@ import { LogModelType } from '../model/LogRecord'
 // }
 
 export const WalletActions = ({ route }) => (
-  <View style={{ flex: 1 }}>
-    {console.log(route.params.log)}
+  <View style={{ flex: 1, paddingLeft: 10, paddingRight: 10, }}>
     {route.params.log
       ? <LogFormEdit log={route.params.log} />
       : <LogFormAdd />

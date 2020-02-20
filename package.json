@@ -15,6 +15,7 @@
     ]
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "2.1.0",
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/drawer": "^5.0.5",
     "@react-navigation/material-bottom-tabs": "^5.0.5",
