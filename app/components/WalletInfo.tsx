@@ -12,8 +12,7 @@ export const WalletInfo: React.FC<Props> = observer(() => {
   return (
     <View style={{ flex: 1 }}>
       <Text>Summary of my wallet</Text>
-      <Text>${record.balance}</Text>
-      <Text>Balance of</Text>
+      <Text>Balance ${record.getBalance()}</Text>
     </View>
   )
 })

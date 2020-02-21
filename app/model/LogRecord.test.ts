@@ -67,7 +67,6 @@ describe('Records Model', () => {
 
   it('can create a log record with defaults', () => {
     const record_with_props = Record.create({
-      balance: DEFAULT_BALANCE,
       logs: [Log.create(buildLogObj())],
     })
 
@@ -108,6 +107,18 @@ describe('Records Model', () => {
       expect(record.getLogsByDayOfMonth(new Date(2021, 8, 1))).toMatchSnapshot()
       expect(record.getLogsByDayOfMonth(new Date(2020, 2, 1))).toMatchSnapshot()
     })
+
+    test('getBalance should return balance from the record of expense and income', () => {
+      const record = Record.create({})
+      const expectedBalance = 100
+
+      record.add(Log.create({ amount: 200, type: LOG_TYPES.INCOME }))
+      record.add(Log.create({ amount: 100, type: LOG_TYPES.INCOME }))
+      record.add(Log.create({ amount: 100, type: LOG_TYPES.EXPENSE }))
+      record.add(Log.create({ amount: 100, type: LOG_TYPES.EXPENSE }))
+
+      expect(record.getBalance())
+    })
   })
 
   describe('actions', () => {
@@ -116,7 +127,7 @@ describe('Records Model', () => {
 
     beforeEach(() => {
       patches = []
-      record = Record.create({ balance: DEFAULT_BALANCE })
+      record = Record.create()
 
       onPatch(record, snapshot => patches.push(snapshot))
     })
@@ -128,16 +139,19 @@ describe('Records Model', () => {
     })
 
     it('can remove all logs', () => {
-      record.add(Log.create(buildLogObj()))
-      record.add(Log.create(buildLogObj()))
+      record.add(Log.create(buildLogObj({
+        type: LOG_TYPES.INCOME, amount: DEFAULT_BALANCE
+      })))
+      record.add(Log.create(buildLogObj({ amount: DEFAULT_LOG_AMOUNT })))
+      record.add(Log.create(buildLogObj({ amount: DEFAULT_LOG_AMOUNT })))
       const totalExpenses = DEFAULT_LOG_AMOUNT * 2
 
-      expect(record.logs.length).toBe(2)
-      expect(record.balance).toBe(DEFAULT_BALANCE - totalExpenses)
+      expect(record.logs.length).toBe(3)
+      expect(record.getBalance()).toBe(DEFAULT_BALANCE - totalExpenses)
 
       record.clear()
       expect(record.logs.length).toBe(0)
-      expect(record.balance).toBe(DEFAULT_BALANCE)
+      expect(record.getBalance()).toBe(0)
     })
   })
 })

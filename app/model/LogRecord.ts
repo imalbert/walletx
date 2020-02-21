@@ -21,6 +21,9 @@ export enum LOG_CATEGORY {
 export enum RECORD_ACCOUNT { CASH_IN_HAND = 'CASH_IN_HAND' }
 export enum RECORD_ACTIONS { ADD = 'RECORD_ADD', RM = 'RECORD_RM' }
 
+// TODOs:
+// Log by itself allows type: INCOME and category: FOOD
+// Look for log model solution (maybe hooks)
 export const Log = types.model('Log')
   .props({
     amount: types.optional(types.number, 0),
@@ -53,34 +56,19 @@ export const Log = types.model('Log')
     }
   }))
 
-const isExpense = (log: LogModelType) => log.type === LOG_TYPES.EXPENSE
-const calcBalance = (
-  log:     LogModelType,
-  balance: number,
-  action:  RECORD_ACTIONS): number => {
-  switch(action) {
-    case RECORD_ACTIONS.ADD: {
-      return isExpense(log)
-        ? balance - log.amount
-        : balance + log.amount
-    }
-    case RECORD_ACTIONS.RM: {
-      return isExpense(log)
-        ? balance + log.amount
-        : balance - log.amount
-    }
-    default:
-      return balance
-  }
-}
-
 export const Record = types.model('Record')
   .props({
     account: types.optional(types.string, RECORD_ACCOUNT.CASH_IN_HAND),
-    balance: types.optional(types.number, 0),
     logs: types.optional(types.array(Log), []),
   })
   .views(self => ({
+    getBalance() {
+      return self.logs.reduce((total, log) => {
+        return log.isExpense
+          ? total - log.amount
+          : total + log.amount
+      }, 0)
+    },
     getLogsByMonth(today: Date = new Date()) {
       const monthNow = today.getMonth()
       const yearNow = today.getFullYear()
@@ -113,10 +101,8 @@ export const Record = types.model('Record')
     return {
       add(log: LogModelType) {
         self.logs.push(log)
-        self.balance = calcBalance(log, self.balance, RECORD_ACTIONS.ADD)
       },
       remove(log: LogModelType) {
-        self.balance = calcBalance(log, self.balance, RECORD_ACTIONS.RM)
         destroy(log)
       },
       clear() {
