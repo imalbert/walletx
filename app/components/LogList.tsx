@@ -26,13 +26,12 @@ export const RecordLogs = observer(() => {
   const { record } = useStore()
   const logsByDay = record.getLogsByDayOfMonth()
   const days = Object.keys(logsByDay).sort((a, b) => {
-    // Earlier dates are placed to the end of array
+    // Later dates are placed to the front of list
     return (a < b) ? 1 : (a > b) ? -1 : 0
   })
 
   // TODO:
   // why is days in "MM/DD/YY" format when i saved it as "MMM DD"? Fix it
-  console.log('new log added', logsByDay)
 
   return (
     <>

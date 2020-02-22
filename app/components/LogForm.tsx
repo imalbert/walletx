@@ -4,7 +4,6 @@ import { observer } from 'mobx-react'
 import { TextInput, Text, Chip, IconButton } from 'react-native-paper'
 import { LogModelType, LOG_CATEGORY, LOG_TYPES } from '../model/LogRecord'
 import { View, Platform } from 'react-native'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 interface Props {

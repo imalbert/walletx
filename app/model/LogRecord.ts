@@ -7,6 +7,7 @@ import {
 
 export enum LOG_TYPES { EXPENSE = 'EXPENSE', INCOME = 'INCOME' }
 export enum LOG_CATEGORY {
+  INCOME    = 'INCOME',
   FOOD      = 'FOOD',
   HOUSEHOLD = 'HOUSEHOLD',
   TRANSPORT = 'TRANSPORT',
@@ -16,7 +17,18 @@ export enum LOG_CATEGORY {
   EDUCATION = 'EDUCATION',
   GIFT      = 'GIFT',
   OTHER     = 'OTHER',
-  INCOME    = 'INCOME',
+}
+export enum LOG_CATEGORY_ICONS {
+  INCOME    = 'cash',
+  FOOD      = 'food',
+  HOUSEHOLD = 'home-heart',
+  TRANSPORT = 'train-car',
+  HEALTH    = 'heart-pulse',
+  APPAREL   = 'hanger',
+  SOCIAL    = 'account-group',
+  EDUCATION = 'book-open-variant',
+  GIFT      = 'gift',
+  OTHER     = 'all-inclusive',
 }
 export enum RECORD_ACCOUNT { CASH_IN_HAND = 'CASH_IN_HAND' }
 export enum RECORD_ACTIONS { ADD = 'RECORD_ADD', RM = 'RECORD_RM' }
@@ -43,6 +55,9 @@ export const Log = types.model('Log')
     changeAmount(newAmount: number) { self.amount = newAmount },
     changeCategory(newCategory: LOG_CATEGORY) {
       self.category = newCategory
+      self.type = newCategory === LOG_CATEGORY.INCOME
+        ? LOG_TYPES.INCOME
+        : LOG_TYPES.EXPENSE
     },
     changeDate(newDate: Date) { self.date = newDate },
     changeType(newType: LOG_TYPES) {
