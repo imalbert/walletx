@@ -16,13 +16,13 @@ export async function setupRootStore() {
 
   try {
     // get from storage the snapshot
-    data = (await Storage.load(ROOT_STATE_STORAGE_KEY)) || {}
+    data = await Storage.load(ROOT_STATE_STORAGE_KEY) || { record: Record.create() }
     console.info('Snapshot loaded', data)
     rootStore = WalletModel.create(data)
   } catch (e) {
-    rootStore = WalletModel.create({})
-
     __DEV__ && console.error(e.message)
+
+    rootStore = WalletModel.create({ record: Record.create() })
   }
 
   // storage.save on snapshot
