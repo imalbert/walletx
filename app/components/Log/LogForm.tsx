@@ -47,7 +47,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
         scrollTo({
           x: { width: 66, offset: -10 },
           scrollRef: dateScroll,
-          index: daysArray.indexOf(log.date.getDate()) - 2,
+          index: daysArray.indexOf(log.date.getDate()),
           animated: false,
         })
       }
@@ -110,6 +110,11 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
       </ScrollView>
     </View>
     <View style={styles.datesView}>
+      <Text style={{ color: Colors.grey700, fontSize: 24, marginLeft: 16 }}>
+        {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ][log.date.getMonth()]}
+        {' ' + log.date.getFullYear()}
+      </Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} ref={dateScroll}  style={{ backgroundColor: Colors.grey100 }}>
         {daysArray.map(date => {
           return (
@@ -120,7 +125,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
                 scrollTo({
                   x: { width: 66, offset: -10 },
                   scrollRef: dateScroll,
-                  index: daysArray.indexOf(selectedDate.getDate()) - 2,
+                  index: daysArray.indexOf(selectedDate.getDate()),
                   animated: true,
                 })
               }}>
@@ -134,15 +139,11 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
           )
         })}
       </ScrollView>
-      <View style={{ alignItems: 'baseline', justifyContent: 'flex-start' }}>
-        <Text style={{ color: Colors.grey700, fontSize: 24 }}>February</Text>
-        <Text style={{ color: Colors.grey600, fontSize: 12 }}>2020</Text>
-      </View>
-      <IconButton
+      {/* <IconButton
         icon="calendar-text"
         size={24}
         color={Colors.grey700}
-        style={{ marginTop: -8 }} />
+        style={{ marginTop: -8 }} /> */}
     </View>
     </>
   )
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
   textInput: { height: 96, fontSize: 24, marginLeft: 16, marginTop: 8, backgroundColor: 'transparent' },
   categView: { height: 96, marginTop: 8 },
   categItem: { height: 96, width: 90, display: 'flex', justifyContent: 'center', alignItems: 'center' },
-  datesView: { height: 84, marginTop: 8, flexDirection: 'row', alignItems: 'center' },
-  datesItemWrap: { width: 66, display: 'flex', justifyContent: 'center', alignItems: 'center' },
+  datesView: { height: 84, marginTop: 8 },
+  datesItemWrap: { width: 66, marginTop: 8, display: 'flex', justifyContent: 'center', alignItems: 'center' },
   datesItem: { width: 42, height: 42, backgroundColor: Colors.indigo500, borderRadius: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' },
 })
