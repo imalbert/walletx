@@ -23,7 +23,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
   const logTypes = Object.values(LOG_TYPES)
 
   // LIMITATION: right now add and edit on dates are only on current month
-  // Render all days of current month
+  // Render all days of current month; 
   const endOfMonth = new Date(log.date.getFullYear(), log.date.getMonth() + 1, 0).getDate()
   // is there a better way to create array from number???
   const daysArray = []
@@ -37,17 +37,27 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
     log.changeDate(currentDate)
   }
 
+  const scrollTo = ({ scrollRef, index, x, animated }) => {
+    scrollRef.current.scrollTo({ x: (index * x.width) + x.offset , y: 0, animated })
+  }
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const offset = 1
       if (amountInput.current) { amountInput.current.focus() }
       if (dateScroll.current) {
-        const logDateIdx = daysArray.indexOf(log.date.getDate()) - 2
-        dateScroll.current.scrollTo({ x: (logDateIdx * 66) - 10, y: 0, animated: false })
+        scrollTo({
+          x: { width: 66, offset: -10 },
+          scrollRef: dateScroll,
+          index: daysArray.indexOf(log.date.getDate()) - 2,
+          animated: false,
+        })
       }
       if (categScroll.current) {
-        const logCategoryIdx = Object.values(LOG_CATEGORY).indexOf(LOG_CATEGORY[log.category]) - offset
-        categScroll.current.scrollTo({ x: logCategoryIdx * 90, y: 0, animated: false })
+        scrollTo({
+          x: { width: 90, offset: 0 },
+          scrollRef: categScroll,
+          index: Object.values(LOG_CATEGORY).indexOf(LOG_CATEGORY[log.category]) - 1,
+          animated: false,
+        })
       }
     }, 1)
     return () => { clearTimeout(timeout) }
@@ -68,7 +78,17 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
         {Object.values(LOG_CATEGORY).map(categ => {
           return (
             <TouchableOpacity key={`logform-category-${categ}`}
-              style={styles.categItem} onPress={() => { log.changeCategory(categ); amountInput.current.blur() }}>
+              style={styles.categItem}
+              onPress={() => {
+                log.changeCategory(categ)
+                amountInput.current.blur()
+                scrollTo({
+                  x: { width: 90, offset: 0 },
+                  scrollRef: categScroll,
+                  index: Object.values(LOG_CATEGORY).indexOf(LOG_CATEGORY[log.category]),
+                  animated: true,
+                })
+              }}>
               <>
                 <IconButton
                   icon={LOG_CATEGORY_ICONS[categ]}
@@ -97,6 +117,12 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
               onPress={() => {
                 const selectedDate = new Date(log.date.getFullYear(), log.date.getMonth(), date)
                 log.changeDate(selectedDate)
+                scrollTo({
+                  x: { width: 66, offset: -10 },
+                  scrollRef: dateScroll,
+                  index: daysArray.indexOf(selectedDate.getDate()) - 2,
+                  animated: true,
+                })
               }}>
               <View style={{
                 ...styles.datesItem,
