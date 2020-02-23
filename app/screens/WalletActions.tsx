@@ -2,9 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { LogFormAdd } from '../components/Log/LogForm.Add'
-import { LogFormEdit } from '../components/LogFormEdit'
-import { LogModelType } from '../model/LogRecord'
-import { LogForm } from '../components/Log/LogForm'
+import { LogFormEdit } from '../components/Log/LogForm.Edit'
 
 // interface Props {
 //   log?: LogModelType,

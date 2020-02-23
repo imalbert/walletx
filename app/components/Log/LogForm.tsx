@@ -17,6 +17,7 @@ interface Props {
 
 export const LogForm: React.FC<Props> = observer(({ log }) => {
   const amountInput = useRef(null)
+  const categScroll = useRef(null)
   const dateScroll = useRef(null)
   const [showCalendar, setShowCalendar] = useState(false)
   const logTypes = Object.values(LOG_TYPES)
@@ -38,6 +39,11 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
     const timeout = setTimeout(() => {
       if (amountInput.current) { amountInput.current.focus() }
       if (dateScroll.current) { dateScroll.current.scrollTo({ x: 1000, y: 0, animated: false }) }
+      if (categScroll.current) {
+        const offset = 1
+        const logCategoryIdx = Object.values(LOG_CATEGORY).indexOf(LOG_CATEGORY[log.category]) - offset
+        categScroll.current.scrollTo({ x: logCategoryIdx * 90, y: 0, animated: false })
+      }
     }, 1)
     return () => { clearTimeout(timeout) }
   }, [amountInput])
@@ -53,7 +59,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
       onChangeText={text => { log.changeAmount(parseInt(text)) }}
     />
     <View style={styles.categView}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} ref={categScroll}>
         {Object.values(LOG_CATEGORY).map(categ => {
           return (
             <TouchableOpacity key={`logform-category-${categ}`}
