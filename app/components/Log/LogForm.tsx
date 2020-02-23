@@ -22,11 +22,13 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
   const [showCalendar, setShowCalendar] = useState(false)
   const logTypes = Object.values(LOG_TYPES)
 
+  // LIMITATION: right now add and edit on dates are only on current month
+  // Render all days of current month
+  const endOfMonth = new Date(log.date.getFullYear(), log.date.getMonth() + 1, 0).getDate()
   // is there a better way to create array from number???
   const daysArray = []
-  const today = new Date().getDate()
-  let currentDay = today - 7
-  do { daysArray.push(currentDay++) } while (currentDay <= today)
+  let currentDay = 1
+  do { daysArray.push(currentDay++) } while (currentDay <= endOfMonth)
 
   const onChangeCalendar = (_, selectedDate) => {
     setShowCalendar(Platform.OS === 'ios' ? true : false)
@@ -37,10 +39,13 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
+      const offset = 1
       if (amountInput.current) { amountInput.current.focus() }
-      if (dateScroll.current) { dateScroll.current.scrollTo({ x: 1000, y: 0, animated: false }) }
+      if (dateScroll.current) {
+        const logDateIdx = daysArray.indexOf(log.date.getDate()) - 2
+        dateScroll.current.scrollTo({ x: (logDateIdx * 66) - 10, y: 0, animated: false })
+      }
       if (categScroll.current) {
-        const offset = 1
         const logCategoryIdx = Object.values(LOG_CATEGORY).indexOf(LOG_CATEGORY[log.category]) - offset
         categScroll.current.scrollTo({ x: logCategoryIdx * 90, y: 0, animated: false })
       }
