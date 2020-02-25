@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import { List, Text, Button, TouchableRipple } from 'react-native-paper'
 import { LogModelType, LOG_CATEGORY_ICONS } from '../../model/LogRecord'
+import { currencyFmt } from '../../utils/format'
 
 interface Props {
   title: string,
@@ -47,7 +48,7 @@ export const WalletHistory: React.FC<Props> = ({
             <List.Item
               title={log.category}
               left={props => <List.Icon {...props} icon={LOG_CATEGORY_ICONS[log.category]} />}
-              right={props => <Amount {...props}>${log.amount}.00</Amount>}
+              right={props => <Amount {...props}>{currencyFmt(log.amount)}</Amount>}
             />
             </TouchableRipple>
             {isEditing &&

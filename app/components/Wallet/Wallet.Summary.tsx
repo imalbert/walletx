@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Colors, Text } from 'react-native-paper'
+import { currencyFmt } from '../../utils/format'
 
 interface Props {
   balance: string,
@@ -11,7 +12,7 @@ export const WalletSummary: React.FC<Props> = ({ balance }) => {
     <View style={styles.wrapper}>
       <Text style={{ fontSize: 24 }}>Balance</Text>
       <Text style={styles.balance}>
-        $ {balance}.00
+        {currencyFmt(balance)}
       </Text>
     </View>
   )

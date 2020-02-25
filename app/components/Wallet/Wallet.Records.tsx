@@ -7,6 +7,7 @@ import { View } from 'react-native'
 import { WalletSummary } from './Wallet.Summary'
 import { WalletHistory } from './Wallet.History'
 import { LOG_TYPES } from '../../model/LogRecord'
+import { currencyFmt } from '../../utils/format'
 
 export const WalletRecords: React.FC<{}> = observer(() => {
   const { record } = useStore()
@@ -18,7 +19,8 @@ export const WalletRecords: React.FC<{}> = observer(() => {
   const dateToday = new Date().getDate()
 
   // TODO:
-  // why is days in "MM/DD/YY" format when i saved it as "MMM DD"? Fix it
+  // why is days in "MM/DD/YY" format when i saved it as "MMM DD"?
+  // date formats in android is different when in browser
 
   return (
     <View style={{ flex: 1 }}>
@@ -33,7 +35,7 @@ export const WalletRecords: React.FC<{}> = observer(() => {
           <WalletHistory
             key={`wallet.record.day-${day}`}
             title={day}
-            description={`+$${totalIncome}.00  -$${totalExpenses}.00`}
+            description={`+ ${currencyFmt(totalIncome)} - ${currencyFmt(totalExpenses)}`}
             logs={logs}
             isItToday={parseInt(day.split(' ')[1]) === dateToday}
           />
