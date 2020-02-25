@@ -1,3 +1,4 @@
+import { dateFmt } from '../utils/format'
 import {
   types,
   getParent,
@@ -99,8 +100,7 @@ export const Record = types.model('Record')
       const logs = self.getLogsByMonth(today)
 
       return logs.reduce((coll, item) => {
-        const options = { month: 'short', day: 'numeric' }
-        const prop = item.date.toLocaleDateString('en-US', options)
+        const prop = dateFmt(item.date.toISOString())
 
         if (coll[prop]) {
           coll[prop].push(item)

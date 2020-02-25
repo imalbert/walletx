@@ -6,18 +6,39 @@ import { useStore } from '../../model/Root'
 import { View } from 'react-native'
 import { WalletSummary } from './Wallet.Summary'
 import { WalletHistory } from './Wallet.History'
+import { LOG_TYPES } from '../../model/LogRecord'
 
 export const WalletRecords: React.FC<{}> = observer(() => {
   const { record } = useStore()
+  const logsByDay = record.getLogsByDayOfMonth()
+  const days = Object.keys(logsByDay).sort((a, b) => {
+    // Later dates are placed to the front of list
+    return (a < b) ? 1 : (a > b) ? -1 : 0
+  })
+  const dateToday = new Date().getDate()
+
+  // TODO:
+  // why is days in "MM/DD/YY" format when i saved it as "MMM DD"? Fix it
 
   return (
     <View style={{ flex: 1 }}>
       <WalletSummary balance={record.getBalance().toString()} />
-      <WalletHistory
-        title={'Today, 24 Feb'}
-        description={'+$500.00  -$250.00'}
-        logs={record.logs}
-      />
+      {days.map(day => {
+        let totalExpenses = 0; let totalIncome = 0
+        const logs = logsByDay[day]
+        logs.forEach(log => log.type === LOG_TYPES.EXPENSE
+          ? totalExpenses += log.amount : totalIncome += log.amount)
+
+        return (
+          <WalletHistory
+            key={`wallet.record.day-${day}`}
+            title={day}
+            description={`+$${totalIncome}.00  -$${totalExpenses}.00`}
+            logs={logs}
+            isItToday={parseInt(day.split(' ')[1]) === dateToday}
+          />
+        )
+      })}
     </View>
   )
 })
