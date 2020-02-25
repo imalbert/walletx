@@ -23,7 +23,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
   const logTypes = Object.values(LOG_TYPES)
 
   // LIMITATION: right now add and edit on dates are only on current month
-  // Render all days of current month; 
+  // Render all days of current month;
   const endOfMonth = new Date(log.date.getFullYear(), log.date.getMonth() + 1, 0).getDate()
   // is there a better way to create array from number???
   const daysArray = []
@@ -61,27 +61,27 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
       }
     }, 1)
     return () => { clearTimeout(timeout) }
-  }, [amountInput])
+  }, [])
 
   return (
-    <>
+    <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag">
     <TextInput
-      ref={amountInput}
+      autoFocus dense
       label={capitalize(log.type)}
+      ref={amountInput}
       style={styles.textInput}
       keyboardType="numeric"
       value={`${isNaN(log.amount) || log.amount === 0 ? '' : log.amount.toString()}`}
       onChangeText={text => { log.changeAmount(parseInt(text)) }}
     />
     <View style={styles.categView}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} ref={categScroll}>
+      <ScrollView horizontal keyboardShouldPersistTaps="always" showsHorizontalScrollIndicator={false} ref={categScroll}>
         {Object.values(LOG_CATEGORY).map(categ => {
           return (
             <TouchableOpacity key={`logform-category-${categ}`}
               style={styles.categItem}
               onPress={() => {
                 log.changeCategory(categ)
-                amountInput.current.blur()
                 scrollTo({
                   x: { width: 90, offset: 0 },
                   scrollRef: categScroll,
@@ -115,7 +115,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ][log.date.getMonth()]}
         {' ' + log.date.getFullYear()}
       </Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} ref={dateScroll}  style={{ backgroundColor: Colors.grey100 }}>
+      <ScrollView horizontal keyboardShouldPersistTaps="always" showsHorizontalScrollIndicator={false} ref={dateScroll}>
         {daysArray.map(date => {
           return (
             <TouchableOpacity key={`logform-category-${date}`} style={styles.datesItemWrap}
@@ -145,7 +145,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
         color={Colors.grey700}
         style={{ marginTop: -8 }} /> */}
     </View>
-    </>
+    </ScrollView>
   )
 })
 
