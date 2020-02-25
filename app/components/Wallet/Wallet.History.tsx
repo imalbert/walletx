@@ -20,7 +20,6 @@ export const WalletHistory: React.FC<Props> = observer(({
   logs,
   isItToday = false,
 }) => {
-  const navigation = useNavigation()
   let controls = isExpanded
     ? {
       expanded: isExpanded,
@@ -35,41 +34,38 @@ export const WalletHistory: React.FC<Props> = observer(({
         titleStyle={{ fontSize: 24 }}
         description={description}
       >
-        {logs.map((log, idx) => {
-          // const [isEditing, toggleEdit] = React.useState(false)
-
-          return (
-            <View key={`wallet.history.${title}-log-${idx}`}>
-            {/* <TouchableRipple
-              onPress={() => toggleEdit(false)}
-              onLongPress={() => toggleEdit(!isEditing)}> */}
-            <List.Item
-              title={log.category}
-              left={props => <List.Icon {...props} icon={LOG_CATEGORY_ICONS[log.category]} />}
-              right={props => <Amount {...props}>{currencyFmt(log.amount)}</Amount>}
-            />
-            {/* </TouchableRipple> */}
-            {/* {isEditing &&
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Button onPress={() => toggleEdit(false)}>Cancel</Button>
-              <Button onPress={() => { log.remove() }}>Remove</Button>
-              <Button onPress={() => { navigation.navigate('WalletActions', { log }) }}>Edit</Button>
-            </View> */
-            }
-            {<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <Button onPress={() => { log.remove() }}>Remove</Button>
-              <Button onPress={() => { navigation.navigate('WalletActions', { log }) }}>Edit</Button>
-            </View>
-            }
-            </View>
-          )
-        })}
+        {logs.map((log, idx) => <LogDay title={title} idx={idx} log={log} />)}
       </List.Accordion>
     </List.Section>
   )
 })
 
-const LogDay
+const LogDay = ({ title, idx, log }) => {
+  const navigation = useNavigation()
+  const [isEditing, toggleEdit] = React.useState(false)
+
+  return (
+    <View key={`wallet.history.${title}-log-${idx}`}>
+    <TouchableRipple
+      onPress={() => toggleEdit(false)}
+      onLongPress={() => toggleEdit(!isEditing)}>
+    <List.Item
+      title={log.category}
+      left={props => <List.Icon {...props} icon={LOG_CATEGORY_ICONS[log.category]} />}
+      right={props => <Amount {...props}>{currencyFmt(log.amount)}</Amount>}
+    />
+    </TouchableRipple>
+
+    {isEditing &&
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <Button onPress={() => toggleEdit(false)}>Cancel</Button>
+        <Button onPress={() => { log.remove() }}>Remove</Button>
+        <Button onPress={() => { navigation.navigate('WalletActions', { log }) }}>Edit</Button>
+      </View>
+    }
+    </View>
+  )
+}
 
 const Amount = ({ children, color, style = {} }) => (
   <Text style={{ fontSize: 18, textAlignVertical: 'center', ...style, color , }}>
