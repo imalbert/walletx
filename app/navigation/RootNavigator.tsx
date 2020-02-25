@@ -8,7 +8,7 @@ const Drawer = createDrawerNavigator()
 
 export const RootNavigator = () => {
   return (
-    <Drawer.Navigator drawerType="slide" drawerPosition="right" drawerContent={() => <WalletInfo />}>
+    <Drawer.Navigator drawerType="slide" drawerContent={() => <WalletInfo />}>
       <Drawer.Screen name="Stack" component={StackNavigator} />
     </Drawer.Navigator>
   )

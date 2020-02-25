@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -13,22 +14,19 @@ interface Props {
   isItToday?: boolean,
 }
 
-export const WalletHistory: React.FC<Props> = ({
+export const WalletHistory: React.FC<Props> = observer(({
   title,
   description,
   logs,
   isItToday = false,
 }) => {
   const navigation = useNavigation()
-  let controls = {}
-
-  if (isItToday) {
-    var [isExpanded, toggleExpand] = useState(true)
-    controls = {
+  let controls = isExpanded
+    ? {
       expanded: isExpanded,
       onPress: () => toggleExpand(!isExpanded)
-    }
-  }
+    }: {}
+  var [isExpanded, toggleExpand] = useState(isItToday)
 
   return (
     <List.Section>
@@ -38,22 +36,27 @@ export const WalletHistory: React.FC<Props> = ({
         description={description}
       >
         {logs.map((log, idx) => {
-          const [isEditing, toggleEdit] = React.useState(false)
+          // const [isEditing, toggleEdit] = React.useState(false)
 
           return (
             <View key={`wallet.history.${title}-log-${idx}`}>
-            <TouchableRipple
+            {/* <TouchableRipple
               onPress={() => toggleEdit(false)}
-              onLongPress={() => toggleEdit(!isEditing)}>
+              onLongPress={() => toggleEdit(!isEditing)}> */}
             <List.Item
               title={log.category}
               left={props => <List.Icon {...props} icon={LOG_CATEGORY_ICONS[log.category]} />}
               right={props => <Amount {...props}>{currencyFmt(log.amount)}</Amount>}
             />
-            </TouchableRipple>
-            {isEditing &&
+            {/* </TouchableRipple> */}
+            {/* {isEditing &&
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
               <Button onPress={() => toggleEdit(false)}>Cancel</Button>
+              <Button onPress={() => { log.remove() }}>Remove</Button>
+              <Button onPress={() => { navigation.navigate('WalletActions', { log }) }}>Edit</Button>
+            </View> */
+            }
+            {<View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
               <Button onPress={() => { log.remove() }}>Remove</Button>
               <Button onPress={() => { navigation.navigate('WalletActions', { log }) }}>Edit</Button>
             </View>
@@ -64,7 +67,9 @@ export const WalletHistory: React.FC<Props> = ({
       </List.Accordion>
     </List.Section>
   )
-}
+})
+
+const LogDay
 
 const Amount = ({ children, color, style = {} }) => (
   <Text style={{ fontSize: 18, textAlignVertical: 'center', ...style, color , }}>
