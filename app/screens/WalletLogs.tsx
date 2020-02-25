@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { ScrollView } from 'react-native'
-import { Portal, FAB } from 'react-native-paper'
+import { ScrollView, StyleSheet } from 'react-native'
+import { Portal, FAB, Text, Colors } from 'react-native-paper'
 import { useIsDrawerOpen } from '@react-navigation/drawer'
 
-import { RecordLogs } from '../components/LogList'
+import { WalletRecords } from '../components/Wallet/Wallet.Records'
 
 export const WalletLogs = ({ navigation }) => {
   const showFAB = !useIsDrawerOpen()
@@ -12,7 +12,7 @@ export const WalletLogs = ({ navigation }) => {
   return (
     <>
     <ScrollView style={{ flex: 1 }}>
-      <RecordLogs />
+      <WalletRecords />
     </ScrollView>
     <Portal>
       {showFAB && <FAB
@@ -25,3 +25,6 @@ export const WalletLogs = ({ navigation }) => {
   )
 }
 
+const styles = StyleSheet.create({
+  wrapper: { backgroundColor: Colors.amber100 },
+})
