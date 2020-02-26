@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-import { List, Text, Button, TouchableRipple } from 'react-native-paper'
+import { List, Text, Button, TouchableRipple, useTheme } from 'react-native-paper'
 import { LogModelType, LOG_CATEGORY_ICONS } from '../../model/LogRecord'
 import { currencyFmt } from '../../utils/format'
 
@@ -20,6 +20,7 @@ export const WalletHistory: React.FC<Props> = observer(({
   logs,
   isItToday = false,
 }) => {
+  const theme = useTheme()
   let controls = isExpanded
     ? {
       expanded: isExpanded,
@@ -28,24 +29,24 @@ export const WalletHistory: React.FC<Props> = observer(({
   var [isExpanded, toggleExpand] = useState(isItToday)
 
   return (
-    <List.Section>
+    <List.Section theme={theme}>
       <List.Accordion {...controls}
         title={`${isItToday ? 'Today, ' : ''}${title}`}
         titleStyle={{ fontSize: 24 }}
         description={description}
       >
-        {logs.map((log, idx) => <LogDay title={title} idx={idx} log={log} />)}
+        {logs.map((log, idx) => <LogDay log={log} key={`wallet.history.${title}-log-${idx}`} />)}
       </List.Accordion>
     </List.Section>
   )
 })
 
-const LogDay = ({ title, idx, log }) => {
+const LogDay = ({ log }) => {
   const navigation = useNavigation()
   const [isEditing, toggleEdit] = React.useState(false)
 
   return (
-    <View key={`wallet.history.${title}-log-${idx}`}>
+    <View>
     <TouchableRipple
       onPress={() => toggleEdit(false)}
       onLongPress={() => toggleEdit(!isEditing)}>

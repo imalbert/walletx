@@ -22,8 +22,10 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    marginTop: 16,
+    padding: 2,
+    marginTop: 2,
+    borderColor: 'black',
+    borderWidth: 1,
   },
   balance: {
     fontSize: 32,

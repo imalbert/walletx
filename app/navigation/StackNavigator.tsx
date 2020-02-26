@@ -1,28 +1,17 @@
-import React, { useState } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { Appbar, Text } from 'react-native-paper'
+import React from 'react'
+import { Appbar, withTheme } from 'react-native-paper'
 import { createStackNavigator } from '@react-navigation/stack'
-import { useNavigation } from '@react-navigation/native'
-
 import { useStore } from '../model/Root'
-import { Log } from '../model/LogRecord'
 
 import { WalletLogs } from '../screens/WalletLogs'
 import { WalletActions } from '../screens/WalletActions'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
+import { currencyFmt } from '../utils/format'
 
 const Stack = createStackNavigator()
 
-export const StackNavigator = () => {
+export const StackNavigator = withTheme(({ theme }) => {
   const { record } = useStore()
-  const navigation = useNavigation()
-  const [newLog] = useState(Log.create())
-
-  const onAdd = () => {
-    // record.add(newLog)
-    navigation.goBack()
-  }
-
   return (
     <Stack.Navigator
       initialRouteName="My Wallet"
@@ -38,24 +27,28 @@ export const StackNavigator = () => {
               : scene.route.name
 
           return (
-            <Appbar.Header>
-              {previous ? (
-                <Appbar.Action icon="close" onPress={navigation.goBack} />
-              ) : (
-                <Appbar.Action
-                  icon="wallet"
-                  onPress={() => ((navigation as any) as DrawerNavigationProp<{}>).openDrawer()}
-                />
-              )}
-              <Appbar.Content title={title} titleStyle={{ fontSize: 18, fontWeight: 'bold' }} />
+            <Appbar.Header theme={theme} style={{ height: 84 }}>
+              {previous
+                ? <Appbar.Action icon="close" onPress={navigation.goBack} />
+                : <Appbar.Action
+                    icon="wallet"
+                    size={36}
+                    onPress={() => ((navigation as any) as DrawerNavigationProp<{}>).openDrawer()}
+                  />}
+
+              <Appbar.Content
+                title={title === 'balance' ? currencyFmt(record.getBalance().toString()) : title}
+                subtitle={title === 'balance' ? 'balance' : null}
+                titleStyle={{ fontSize: 24 }}
+              />
+
               {options.headerRight
                 ? options.headerRight({})
-                : <Appbar.Action icon="note-plus" onPress={() => navigation.navigate('WalletActions') }/>
-              }
-              {/* {scene.route.name === 'WalletActions'
-                ? <Appbar.Action icon="check" onPress={onSave}/>
-                : <Appbar.Action icon="note-plus" onPress={() => navigation.navigate('WalletActions') }/>
-              } */}
+                : <Appbar.Action
+                    icon="plus"
+                    size={36}
+                    onPress={() => navigation.navigate('WalletActions') }
+                  />}
             </Appbar.Header>
           )
         }
@@ -64,7 +57,7 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="My Wallet"
         component={WalletLogs}
-        options={{ headerTitle: 'My Wallet' }}
+        options={{ headerTitle: 'balance' }}
       />
       <Stack.Screen
         name="WalletActions"
@@ -74,4 +67,4 @@ export const StackNavigator = () => {
       />
     </Stack.Navigator>
   )
-}
+})

@@ -1,18 +1,26 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 
 import { observer } from 'mobx-react'
 import { useStore } from '../model/Root'
+import { Button, Text, withTheme } from 'react-native-paper'
 
-interface Props {}
+interface Props {
+  theme?: any
+}
 
-export const WalletInfo: React.FC<Props> = observer(() => {
-  const { record } = useStore()
+export const WalletInfo: React.FC<Props> = observer(({ theme = { colors: { background: 'white' }} }) => {
+  const { record, app } = useStore()
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <Text>Summary of my wallet</Text>
       <Text>Balance ${record.getBalance()}</Text>
+      <Button icon="camera" mode="contained" onPress={() => { app.toggleTheme() }}>
+        theme switch
+      </Button>
     </View>
   )
 })
+
+export const WalletInfoThemed = withTheme(WalletInfo)
