@@ -27,7 +27,7 @@ export const StackNavigator = withTheme(({ theme }) => {
               : scene.route.name
 
           return (
-            <Appbar.Header theme={theme} style={{ height: 84 }}>
+            <Appbar.Header theme={theme} style={{ height: 84, backgroundColor: theme.colors.background }}>
               {previous
                 ? <Appbar.Action icon="close" onPress={navigation.goBack} />
                 : <Appbar.Action

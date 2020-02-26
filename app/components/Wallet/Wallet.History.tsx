@@ -43,6 +43,7 @@ export const WalletHistory: React.FC<Props> = observer(({
 
 const LogDay = ({ log }) => {
   const navigation = useNavigation()
+  const { dark } = useTheme()
   const [isEditing, toggleEdit] = React.useState(false)
 
   return (
@@ -50,18 +51,24 @@ const LogDay = ({ log }) => {
     <TouchableRipple
       onPress={() => toggleEdit(false)}
       onLongPress={() => toggleEdit(!isEditing)}>
-    <List.Item
-      title={log.category}
-      left={props => <List.Icon {...props} icon={LOG_CATEGORY_ICONS[log.category]} />}
-      right={props => <Amount {...props}>{currencyFmt(log.amount)}</Amount>}
-    />
+      <List.Item
+        title={log.category}
+        left={props => <List.Icon {...props} icon={LOG_CATEGORY_ICONS[log.category]} />}
+        right={props => <Amount {...props}>{currencyFmt(log.amount)}</Amount>}
+      />
     </TouchableRipple>
 
     {isEditing &&
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <Button onPress={() => toggleEdit(false)}>Cancel</Button>
-        <Button onPress={() => { log.remove() }}>Remove</Button>
-        <Button onPress={() => { navigation.navigate('WalletActions', { log }) }}>Edit</Button>
+        <Button dark={dark} onPress={() => toggleEdit(false)}>
+          <Text>Cancel</Text>
+        </Button>
+        <Button dark={dark} onPress={() => { log.remove() }}>
+          <Text>Remove</Text>
+        </Button>
+        <Button dark={dark} onPress={() => { navigation.navigate('WalletActions', { log }) }}>
+          <Text>Edit</Text>
+        </Button>
       </View>
     }
     </View>

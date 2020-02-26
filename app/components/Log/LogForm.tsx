@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
 import { ScrollView, View, StyleSheet, Platform } from 'react-native'
-import { IconButton, Colors, TextInput, Text } from 'react-native-paper'
+import { IconButton, Colors, TextInput, Text, useTheme } from 'react-native-paper'
 
 import { LOG_CATEGORY, LOG_CATEGORY_ICONS, LOG_TYPES, LogModelType } from '../../model/LogRecord'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -19,6 +19,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
   const amountInput = useRef(null)
   const categScroll = useRef(null)
   const dateScroll = useRef(null)
+  const theme = useTheme()
   const [showCalendar, setShowCalendar] = useState(false)
   const logTypes = Object.values(LOG_TYPES)
 
@@ -64,12 +65,12 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
   }, [])
 
   return (
-    <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag">
+    <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag" style={{ backgroundColor: theme.colors.background }}>
     <TextInput
-      autoFocus dense
-      label={capitalize(log.type)}
       ref={amountInput}
-      style={styles.textInput}
+      autoFocus dense theme={theme}
+      style={{ ...styles.textInput, backgroundColor: theme.colors.background }}
+      label={capitalize(log.type)}
       keyboardType="numeric"
       value={`${isNaN(log.amount) || log.amount === 0 ? '' : log.amount.toString()}`}
       onChangeText={text => { log.changeAmount(parseInt(text)) }}
@@ -101,6 +102,7 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
                         ? Colors.red500
                         : Colors.grey300
                   }}
+                  theme={theme}
                 />
                 <Text style={{ color: Colors.grey700 }}>{capitalize(categ)}</Text>
               </>
@@ -139,18 +141,13 @@ export const LogForm: React.FC<Props> = observer(({ log }) => {
           )
         })}
       </ScrollView>
-      {/* <IconButton
-        icon="calendar-text"
-        size={24}
-        color={Colors.grey700}
-        style={{ marginTop: -8 }} /> */}
     </View>
     </ScrollView>
   )
 })
 
 const styles = StyleSheet.create({
-  textInput: { height: 96, fontSize: 24, marginLeft: 16, marginTop: 8, backgroundColor: 'transparent' },
+  textInput: { height: 80, fontSize: 24 },
   categView: { height: 96, marginTop: 8 },
   categItem: { height: 96, width: 90, display: 'flex', justifyContent: 'center', alignItems: 'center' },
   datesView: { height: 84, marginTop: 8 },

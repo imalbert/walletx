@@ -5,7 +5,6 @@ import { observer } from 'mobx-react'
 import { useTheme } from 'react-native-paper'
 import { useStore } from '../../model/Root'
 
-import { WalletSummary } from './Wallet.Summary'
 import { WalletHistory } from './Wallet.History'
 import { LOG_TYPES } from '../../model/LogRecord'
 import { currencyFmt } from '../../utils/format'

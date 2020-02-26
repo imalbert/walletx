@@ -27,12 +27,13 @@ const AppWithTheme = observer(() => {
   const { app } = useStore()
 
   const isDark = app.theme === 'dark'
+  console.log('Is dark theme? ', isDark)
   const theme = {
     ...DefaultTheme,
     dark: isDark,
     colors: {
       ...DefaultTheme.colors,
-      primary: isDark ? Colors.black : Colors.white,
+      primary: isDark ? Colors.white : Colors.black,
       secondary: isDark ? Colors.white : Colors.black,
       background: isDark ? Colors.black : Colors.white,
       text: isDark ? Colors.white : Colors.black,
