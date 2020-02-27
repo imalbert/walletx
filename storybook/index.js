@@ -5,7 +5,6 @@ import './rn-addons';
 
 // import stories
 configure(() => {
-  require('../app/components/Wallet/Wallet.Summary.story')
   require('../app/components/sidebar/sidebar.story')
 }, module);
 
