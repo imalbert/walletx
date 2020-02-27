@@ -7,6 +7,7 @@ import './rn-addons';
 configure(() => {
   require('../app/components/sidebar/sidebar.story')
   require('../app/components/currency/currency.story')
+  require('../app/components/log-item/log-item.story')
 }, module);
 
 // Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters
