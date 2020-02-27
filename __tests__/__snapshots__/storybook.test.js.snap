@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Currency format PHP currency 1`] = `
+<Text
+  style={
+    Array [
+      Object {
+        "color": "#000000",
+        "fontFamily": "System",
+        "fontWeight": "400",
+        "textAlign": "left",
+      },
+      Object {
+        "color": undefined,
+        "fontSize": 18,
+        "textAlignVertical": "center",
+      },
+    ]
+  }
+>
+  PHP 1000
+</Text>
+`;
+
 exports[`Storyshots Sidebar dark theme 1`] = `
 <RCTSafeAreaView
   emulateUnlessSupported={true}
@@ -132,57 +154,4 @@ exports[`Storyshots Sidebar light theme 1`] = `
     />
   </View>
 </RCTSafeAreaView>
-`;
-
-exports[`Storyshots WalletSummary to Storybook 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "borderColor": "black",
-      "borderWidth": 1,
-      "flexDirection": "row",
-      "marginTop": 2,
-      "padding": 2,
-    }
-  }
->
-  <Text
-    style={
-      Array [
-        Object {
-          "color": "#000000",
-          "fontFamily": "System",
-          "fontWeight": "400",
-          "textAlign": "left",
-        },
-        Object {
-          "fontSize": 24,
-        },
-      ]
-    }
-  >
-    Balance
-  </Text>
-  <Text
-    style={
-      Array [
-        Object {
-          "color": "#000000",
-          "fontFamily": "System",
-          "fontWeight": "400",
-          "textAlign": "left",
-        },
-        Object {
-          "color": "#424242",
-          "flexGrow": 1,
-          "fontSize": 32,
-          "textAlign": "right",
-        },
-      ]
-    }
-  >
-    PHP 1000
-  </Text>
-</View>
 `;

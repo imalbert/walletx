@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native'
 
 import { List, Text, Button, TouchableRipple, useTheme } from 'react-native-paper'
 import { LogModelType, LOG_CATEGORY_ICONS } from '../../model/LogRecord'
-import { currencyFmt } from '../../utils/format'
+
+import { Currency } from '../currency'
 
 interface Props {
   title: string,
@@ -53,8 +54,17 @@ const LogDay = ({ log }) => {
       onLongPress={() => toggleEdit(!isEditing)}>
       <List.Item
         title={log.category}
-        left={props => <List.Icon {...props} icon={LOG_CATEGORY_ICONS[log.category]} />}
-        right={props => <Amount {...props}>{currencyFmt(log.amount)}</Amount>}
+        left={props =>
+          <List.Icon
+            {...props}
+            icon={LOG_CATEGORY_ICONS[log.category]}
+          />
+        }
+        right={props =>
+          <Currency {...props}>
+            {log.amount}
+          </Currency>
+        }
       />
     </TouchableRipple>
 
@@ -74,9 +84,3 @@ const LogDay = ({ log }) => {
     </View>
   )
 }
-
-const Amount = ({ children, color, style = {} }) => (
-  <Text style={{ fontSize: 18, textAlignVertical: 'center', ...style, color , }}>
-    { children }
-  </Text>
-)

@@ -27,9 +27,7 @@ function App() {
 
 const AppWithTheme = observer(() => {
   const { app } = useStore()
-
   const isDark = app.theme === 'dark'
-  console.log('Is dark theme? ', isDark)
   const theme = {
     ...DefaultTheme,
     dark: isDark,
@@ -51,5 +49,5 @@ const AppWithTheme = observer(() => {
   )
 })
 
-export default App
-// export default StorybookUIRoot
+// export default App
+export default StorybookUIRoot
