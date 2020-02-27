@@ -62,5 +62,5 @@ const AppWithTheme = observer(() => {
   )
 })
 
-export default App
-// export default StorybookUIRoot
+// export default App
+export default StorybookUIRoot

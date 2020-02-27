@@ -23,27 +23,10 @@ exports[`Storyshots Currency format PHP currency 1`] = `
 `;
 
 exports[`Storyshots LogItem dark theme 1`] = `
-<View
-  accessible={true}
-  focusable={true}
-  isTVSelectable={true}
-  onClick={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  style={
-    Array [
-      false,
-      undefined,
-    ]
-  }
->
+Array [
   <View
     accessible={true}
-    focusable={false}
+    focusable={true}
     isTVSelectable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
@@ -55,59 +38,101 @@ exports[`Storyshots LogItem dark theme 1`] = `
     style={
       Array [
         false,
-        Array [
-          Object {
-            "padding": 8,
-          },
-          null,
-        ],
+        undefined,
       ]
     }
   >
     <View
+      accessible={true}
+      focusable={false}
+      isTVSelectable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Object {
-          "flexDirection": "row",
-        }
+        Array [
+          false,
+          Array [
+            Object {
+              "padding": 8,
+            },
+            null,
+          ],
+        ]
       }
     >
       <View
-        pointerEvents="box-none"
         style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "height": 40,
-              "justifyContent": "center",
-              "margin": 8,
-              "width": 40,
-            },
-            Object {
-              "marginLeft": 0,
-              "marginRight": 16,
-              "marginVertical": 0,
-            },
-          ]
+          Object {
+            "flexDirection": "row",
+          }
         }
       >
-        <Text />
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "marginVertical": 6,
-              "paddingLeft": 8,
-            },
-            Object {
-              "flex": 1,
-              "justifyContent": "center",
-            },
-          ]
-        }
-      >
+        <View
+          pointerEvents="box-none"
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "height": 40,
+                "justifyContent": "center",
+                "margin": 8,
+                "width": 40,
+              },
+              Object {
+                "marginLeft": 0,
+                "marginRight": 16,
+                "marginVertical": 0,
+              },
+            ]
+          }
+        >
+          <Text />
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "marginVertical": 6,
+                "paddingLeft": 8,
+              },
+              Object {
+                "flex": 1,
+                "justifyContent": "center",
+              },
+            ]
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "textAlign": "left",
+                },
+                Array [
+                  Object {
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "rgba(0, 0, 0, 0.87)",
+                  },
+                  undefined,
+                ],
+              ]
+            }
+          >
+            FOOD
+          </Text>
+        </View>
         <Text
-          numberOfLines={1}
           style={
             Array [
               Object {
@@ -116,45 +141,341 @@ exports[`Storyshots LogItem dark theme 1`] = `
                 "fontWeight": "400",
                 "textAlign": "left",
               },
-              Array [
-                Object {
-                  "fontSize": 16,
-                },
-                Object {
-                  "color": "rgba(0, 0, 0, 0.87)",
-                },
-                undefined,
-              ],
+              Object {
+                "color": "rgba(0, 0, 0, 0.54)",
+                "fontSize": 18,
+                "marginRight": 0,
+                "marginVertical": 0,
+                "textAlignVertical": "center",
+              },
             ]
           }
         >
-          FOOD
+          PHP 0
         </Text>
       </View>
-      <Text
+    </View>
+  </View>,
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "flexDirection": "row",
+        "justifyContent": "flex-end",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "borderRadius": 4,
+          "borderStyle": "solid",
+          "borderWidth": 0,
+          "elevation": 0,
+          "minWidth": 64,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessibilityStates={Array []}
+        accessible={true}
+        focusable={true}
+        isTVSelectable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "color": "#000000",
-              "fontFamily": "System",
-              "fontWeight": "400",
-              "textAlign": "left",
+              "overflow": "hidden",
             },
             Object {
-              "color": "rgba(0, 0, 0, 0.54)",
-              "fontSize": 18,
-              "marginRight": 0,
-              "marginVertical": 0,
-              "textAlignVertical": "center",
+              "borderRadius": 4,
             },
           ]
         }
       >
-        PHP 0
-      </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "textAlign": "left",
+                },
+                Array [
+                  Object {
+                    "letterSpacing": 1,
+                    "marginHorizontal": 16,
+                    "marginVertical": 9,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  Object {
+                    "textTransform": "uppercase",
+                  },
+                  Object {
+                    "color": "#6200ee",
+                    "fontFamily": "System",
+                    "fontWeight": "500",
+                  },
+                  Object {
+                    "fontFamily": "System",
+                    "fontWeight": "500",
+                  },
+                  undefined,
+                ],
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000000",
+                    "fontFamily": "System",
+                    "fontWeight": "400",
+                    "textAlign": "left",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              Cancel
+            </Text>
+          </Text>
+        </View>
+      </View>
     </View>
-  </View>
-</View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "borderRadius": 4,
+          "borderStyle": "solid",
+          "borderWidth": 0,
+          "elevation": 0,
+          "minWidth": 64,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessibilityStates={Array []}
+        accessible={true}
+        focusable={true}
+        isTVSelectable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "overflow": "hidden",
+            },
+            Object {
+              "borderRadius": 4,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "textAlign": "left",
+                },
+                Array [
+                  Object {
+                    "letterSpacing": 1,
+                    "marginHorizontal": 16,
+                    "marginVertical": 9,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  Object {
+                    "textTransform": "uppercase",
+                  },
+                  Object {
+                    "color": "#6200ee",
+                    "fontFamily": "System",
+                    "fontWeight": "500",
+                  },
+                  Object {
+                    "fontFamily": "System",
+                    "fontWeight": "500",
+                  },
+                  undefined,
+                ],
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000000",
+                    "fontFamily": "System",
+                    "fontWeight": "400",
+                    "textAlign": "left",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              Remove
+            </Text>
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "borderColor": "transparent",
+          "borderRadius": 4,
+          "borderStyle": "solid",
+          "borderWidth": 0,
+          "elevation": 0,
+          "minWidth": 64,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessibilityStates={Array []}
+        accessible={true}
+        focusable={true}
+        isTVSelectable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "overflow": "hidden",
+            },
+            Object {
+              "borderRadius": 4,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "textAlign": "left",
+                },
+                Array [
+                  Object {
+                    "letterSpacing": 1,
+                    "marginHorizontal": 16,
+                    "marginVertical": 9,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  Object {
+                    "textTransform": "uppercase",
+                  },
+                  Object {
+                    "color": "#6200ee",
+                    "fontFamily": "System",
+                    "fontWeight": "500",
+                  },
+                  Object {
+                    "fontFamily": "System",
+                    "fontWeight": "500",
+                  },
+                  undefined,
+                ],
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000000",
+                    "fontFamily": "System",
+                    "fontWeight": "400",
+                    "textAlign": "left",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              Edit
+            </Text>
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>,
+]
 `;
 
 exports[`Storyshots LogItem is editing 1`] = `
