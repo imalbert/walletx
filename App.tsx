@@ -6,7 +6,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { RootNavigator } from './app/navigation/RootNavigator'
 import { Provider, setupRootStore, useStore } from './app/model/Root'
 
-export default function App() {
+import StorybookUIRoot from './storybook'
+
+function App() {
   const [rootStore, setRootStore] = useState(undefined)
   useEffect(() => {
     setupRootStore().then(setRootStore)
@@ -48,3 +50,5 @@ const AppWithTheme = observer(() => {
     </PaperProvider>
   )
 })
+
+export default StorybookUIRoot
