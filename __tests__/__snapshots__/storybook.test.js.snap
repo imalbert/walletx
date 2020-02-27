@@ -1,5 +1,139 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Sidebar dark theme 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "black",
+      "flex": 1,
+      "justifyContent": "flex-end",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.12)",
+          "height": 0.5,
+        },
+        undefined,
+        undefined,
+      ]
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "padding": 8,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "System",
+            "fontWeight": "400",
+            "textAlign": "left",
+          },
+          undefined,
+        ]
+      }
+    >
+      Toggle dark theme
+    </Text>
+    <RCTSwitch
+      accessibilityRole="button"
+      onChange={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onTintColor="#03dac4"
+      style={
+        Object {
+          "height": 31,
+          "width": 51,
+        }
+      }
+      tintColor=""
+      value={true}
+    />
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`Storyshots Sidebar light theme 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "flex": 1,
+      "justifyContent": "flex-end",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.12)",
+          "height": 0.5,
+        },
+        undefined,
+        undefined,
+      ]
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "padding": 8,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "System",
+            "fontWeight": "400",
+            "textAlign": "left",
+          },
+          undefined,
+        ]
+      }
+    >
+      Toggle dark theme
+    </Text>
+    <RCTSwitch
+      accessibilityRole="button"
+      onChange={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onTintColor="#03dac4"
+      style={
+        Object {
+          "height": 31,
+          "width": 51,
+        }
+      }
+      tintColor=""
+      value={false}
+    />
+  </View>
+</RCTSafeAreaView>
+`;
+
 exports[`Storyshots WalletSummary to Storybook 1`] = `
 <View
   style={

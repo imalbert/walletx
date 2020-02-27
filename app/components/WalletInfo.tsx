@@ -1,32 +1,55 @@
-import React, { useState } from 'react'
-import { View } from 'react-native'
+import React from 'react'
+import { SafeAreaView, View, StyleSheet } from 'react-native'
 
 import { observer } from 'mobx-react'
 import { useStore } from '../model/Root'
-import { Text, Divider, Switch, withTheme } from 'react-native-paper'
+import { Text, Divider, Switch, useTheme } from 'react-native-paper'
 
-interface Props {
-  theme?: any
-}
-
-export const WalletInfo: React.FC<Props> = observer(({ theme = { colors: { background: 'white' }} }) => {
-  const { record, app } = useStore()
-  const [isDarkTheme, toggleDarkTheme] = useState(false)
-
-  const onToggleThemeSwitch = () => {
-    app.toggleTheme()
-    toggleDarkTheme(!isDarkTheme)
-  }
+export const WalletInfo = observer(() => {
+  const {app} = useStore()
+  const theme = useTheme()
 
   return (
-    <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: theme.colors.background }}>
-      <Divider />
-      <View style={{ padding: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Text>Toggle dark theme</Text>
-        <Switch value={isDarkTheme} onValueChange={onToggleThemeSwitch} />
-      </View>
-    </View>
+    <WalletInfoPure
+      theme={theme}
+      onToggleTheme={app.toggleTheme}
+    />
   )
 })
+interface Props {
+  theme?: any,
+  onToggleTheme : any,
+}
+export const WalletInfoPure: React.FC<Props> = ({
+  theme = { colors: { background: 'white' }},
+  onToggleTheme,
+}) => (
+  <SafeAreaView
+    style={{
+      ...styles.infoView,
+      backgroundColor: theme.colors.background,
+    }}
+  >
+    <Divider />
+    <View style={styles.infoSection}>
+      <Text>Toggle dark theme</Text>
+      <Switch
+        value={theme.dark}
+        onValueChange={onToggleTheme}
+      />
+    </View>
+  </SafeAreaView>
+)
 
-export const WalletInfoThemed = withTheme(WalletInfo)
+const styles = StyleSheet.create({
+  infoView: {
+    flex: 1,
+    justifyContent: 'flex-end'
+  },
+  infoSection: {
+    padding: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+})
