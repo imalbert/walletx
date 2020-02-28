@@ -143,7 +143,7 @@ Object {
 
 exports[`Records Model views getLogsByDayOfMonth to return map of logs with (month + day) as property 1`] = `
 Object {
-  "Feb 1": Array [
+  "Feb 01": Array [
     Object {
       "amount": 1,
       "category": "FOOD",
@@ -183,7 +183,7 @@ Object {
 
 exports[`Records Model views getLogsByDayOfMonth to return map of logs with (month + day) as property 3`] = `
 Object {
-  "Mar 1": Array [
+  "Mar 01": Array [
     Object {
       "amount": 4,
       "category": "FOOD",

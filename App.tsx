@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react'
-import { DefaultTheme, Colors, Provider as PaperProvider } from 'react-native-paper'
+import { DefaultTheme, Colors, Provider as PaperProvider, Theme } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 
 import { RootNavigator } from './app/navigation/RootNavigator'
 import { Provider, setupRootStore, useStore } from './app/model/Root'
 
-export default function App() {
+import StorybookUIRoot from './storybook'
+
+function App() {
   const [rootStore, setRootStore] = useState(undefined)
   useEffect(() => {
     setupRootStore().then(setRootStore)
@@ -23,22 +25,33 @@ export default function App() {
   )
 }
 
+export const AppTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: Colors.black,
+    accent: Colors.black,
+    background: Colors.white,
+    text: Colors.black,
+  }
+}
+export const AppThemeDark: Theme = {
+  ...AppTheme,
+  dark: true,
+  colors: {
+    ...AppTheme.colors,
+    primary: Colors.white,
+    accent: Colors.white,
+    background: Colors.black,
+    text: Colors.white,
+  }
+}
+
 const AppWithTheme = observer(() => {
   const { app } = useStore()
-
-  const isDark = app.theme === 'dark'
-  console.log('Is dark theme? ', isDark)
-  const theme = {
-    ...DefaultTheme,
-    dark: isDark,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: isDark ? Colors.white : Colors.black,
-      secondary: isDark ? Colors.white : Colors.black,
-      background: isDark ? Colors.black : Colors.white,
-      text: isDark ? Colors.white : Colors.black,
-    },
-  }
+  const theme = app.theme === 'dark'
+    ? AppThemeDark
+    : AppTheme
 
   return (
     <PaperProvider theme={theme}>
@@ -48,3 +61,6 @@ const AppWithTheme = observer(() => {
     </PaperProvider>
   )
 })
+
+export default App
+// export default StorybookUIRoot

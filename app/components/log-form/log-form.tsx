@@ -1,10 +1,29 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, {
+  useRef,
+  useEffect,
+} from 'react'
 import { observer } from 'mobx-react'
-import { ScrollView, View, StyleSheet, Platform } from 'react-native'
-import { IconButton, Colors, TextInput, Text, useTheme } from 'react-native-paper'
-
-import { LOG_CATEGORY, LOG_CATEGORY_ICONS, LOG_TYPES, LogModelType } from '../../model/LogRecord'
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+} from 'react-native'
+import {
+  IconButton,
+  Colors,
+  TextInput,
+  Text,
+  useTheme,
+  Theme,
+} from 'react-native-paper'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+
+import {
+  LOG_CATEGORY,
+  LOG_CATEGORY_ICONS,
+  LOG_TYPES,
+  LogModelType
+} from '../../model/LogRecord'
 
 const capitalize = (s: string): string => {
   if (typeof s !== 'string') return ''
@@ -15,32 +34,39 @@ interface Props {
   log: LogModelType,
 }
 
-export const LogForm: React.FC<Props> = observer(({ log }) => {
-  const amountInput = useRef(null)
-  const categScroll = useRef(null)
-  const dateScroll = useRef(null)
+export const LogForm: React.FC<Props> = ({ log }) => {
   const theme = useTheme()
-  const [showCalendar, setShowCalendar] = useState(false)
-  const logTypes = Object.values(LOG_TYPES)
-
-  // LIMITATION: right now add and edit on dates are only on current month
-  // Render all days of current month;
   const endOfMonth = new Date(log.date.getFullYear(), log.date.getMonth() + 1, 0).getDate()
-  // is there a better way to create array from number???
   const daysArray = []
   let currentDay = 1
   do { daysArray.push(currentDay++) } while (currentDay <= endOfMonth)
 
-  const onChangeCalendar = (_, selectedDate) => {
-    setShowCalendar(Platform.OS === 'ios' ? true : false)
-    const currentDate = selectedDate || log.date
+  return (
+    <LogFormPure
+      theme={theme}
+      log={log}
+      daysArray={daysArray}
+    />
+  )
+}
 
-    log.changeDate(currentDate)
-  }
-
+interface PureProps {
+  theme: Theme,
+  log: LogModelType,
+  daysArray: number[],
+}
+const LogFormPure: React.FC<PureProps> = observer(({
+  theme = { colors: { background: 'white' }},
+  log,
+  daysArray,
+}) => {
+  const amountInput = useRef(null)
+  const categScroll = useRef(null)
+  const dateScroll = useRef(null)
   const scrollTo = ({ scrollRef, index, x, animated }) => {
     scrollRef.current.scrollTo({ x: (index * x.width) + x.offset , y: 0, animated })
   }
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (amountInput.current) { amountInput.current.focus() }
