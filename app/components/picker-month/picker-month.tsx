@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import {
   View,
   StyleSheet,
@@ -12,6 +11,8 @@ import {
   Theme,
 } from 'react-native-paper'
 
+import { useStore } from '../../model/Root'
+
 interface Props {
   data: string[],
   currentMonth?: string,
@@ -21,7 +22,9 @@ export const PickerMonth: React.FC<Props> = ({
   currentMonth = data[data.length - 1], // MMM YYYY format
 }) => {
   const theme = useTheme()
-  const [current, changeCurrent] = useState(currentMonth)
+  const { app } = useStore()
+  console.log(app.month)
+  const [current, changeCurrent] = useState(app.month)
 
   let prev = null
   const monthYearSeries = data.reduce((moyr, current) => {

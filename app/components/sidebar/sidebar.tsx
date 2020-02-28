@@ -16,23 +16,27 @@ import {
 import { PickerMonth } from '../picker-month'
 
 export const Sidebar = observer(() => {
-  const {app} = useStore()
+  const {app, record} = useStore()
   const theme = useTheme()
+  const logsMoYr = record.getMonthsWithLogs()
 
   return (
     <SidebarPure
       theme={theme}
       onToggleTheme={app.toggleTheme}
+      logsMoYr={logsMoYr}
     />
   )
 })
 interface Props {
   theme?: any,
   onToggleTheme : any,
+  logsMoYr: string[],
 }
 export const SidebarPure: React.FC<Props> = ({
   theme = { colors: { background: 'white' }},
   onToggleTheme,
+  logsMoYr,
 }) => (
   <SafeAreaView
     style={{
@@ -42,7 +46,7 @@ export const SidebarPure: React.FC<Props> = ({
   >
     <Divider />
     <View style={styles.infoSection}>
-      <PickerMonth data={['Feb 2020', 'Mar 2020', 'Apr 2020']}/>
+      <PickerMonth data={logsMoYr}/>
     </View>
     <Divider />
     <View style={styles.infoSection}>
@@ -54,7 +58,6 @@ export const SidebarPure: React.FC<Props> = ({
     </View>
   </SafeAreaView>
 )
-
 const styles = StyleSheet.create({
   infoView: {
     flex: 1,

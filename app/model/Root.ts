@@ -5,6 +5,7 @@ import { Record } from './LogRecord'
 import { AppOptions } from './AppOptions'
 
 import * as Storage from '../utils/storage'
+import { dateFmt } from '../utils/format'
 
 const WalletModel = types.model({
   record: Record,
@@ -16,16 +17,30 @@ const ROOT_STATE_STORAGE_KEY = 'mitzy-app'
 export async function setupRootStore() {
   let rootStore: Instance<typeof WalletModel>
   let data: any
+  const defaultOpts = {
+    theme: 'light',
+    month: dateFmt(new Date().toISOString(), 'MMM y'),
+  }
 
   try {
     // get from storage the snapshot
-    data = await Storage.load(ROOT_STATE_STORAGE_KEY) || { record: Record.create(), app: AppOptions.create({ theme: 'light' }) }
+    data = await Storage.load(ROOT_STATE_STORAGE_KEY)
+      || {
+        record: Record.create(),
+        app: AppOptions.create(defaultOpts)
+      }
     console.info('Snapshot loaded', data)
-    rootStore = WalletModel.create({ ...data, app: AppOptions.create({ theme: 'light' }) })
+    rootStore = WalletModel.create({
+      ...data,
+      app: AppOptions.create(defaultOpts),
+    })
   } catch (e) {
     __DEV__ && console.error(e.message)
 
-    rootStore = WalletModel.create({ record: Record.create(), app: AppOptions.create({ theme: 'light' }) })
+    rootStore = WalletModel.create({
+      record: Record.create(),
+      app: AppOptions.create(defaultOpts),
+    })
   }
 
   // storage.save on snapshot

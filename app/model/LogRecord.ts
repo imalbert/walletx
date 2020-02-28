@@ -94,6 +94,17 @@ export const Record = types.model('Record')
         && item.date.getFullYear() === yearNow
       ))
     },
+    /**
+     * Return a list of months in MMM YYYY format
+     */
+    getMonthsWithLogs() {
+      const moyr = {}
+      self.logs.forEach(logs => {
+        moyr[dateFmt(logs.date.toISOString(), 'MMM y')] = true
+      })
+
+      return Object.keys(moyr)
+    }
   }))
   .views(self => ({
     getLogsByDayOfMonth(today: Date = new Date()) {
