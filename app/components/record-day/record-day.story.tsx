@@ -1,10 +1,7 @@
 import React from 'react'
 
 import { storiesOf } from '@storybook/react-native'
-import {
-  AppTheme,
-  AppThemeDark,
-} from '../../../App'
+import { AppTheme } from '../../../App'
 
 import { RecordDayPure as RecordDay } from './record-day'
 import { Log } from '../../model/LogRecord'

@@ -5,6 +5,7 @@ import { Portal, FAB, Text, Colors } from 'react-native-paper'
 import { useIsDrawerOpen } from '@react-navigation/drawer'
 
 import { WalletRecords } from '../components/Wallet/Wallet.Records'
+import { RecordMonth } from '../components/record-month'
 
 export const WalletLogs = ({ navigation }) => {
   const showFAB = !useIsDrawerOpen()
