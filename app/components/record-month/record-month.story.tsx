@@ -22,25 +22,26 @@ const days = Object.keys(logsByDay).sort((a, b) => {
   // Later dates are placed to the front of list
   return (a < b) ? 1 : (a > b) ? -1 : 0
 })
-
 const props = {
   theme: AppTheme,
   logsByDay,
   days,
   dateToday: DUMMY_TODAY,
 }
-
 storiesOf('RecordMonth', module)
   .addDecorator(fn => (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="record-day">
+      <Stack.Navigator initialRouteName="record-month">
         <Stack.Screen
-          name="record-day"
+          name="record-month"
           component={fn}
         />
       </Stack.Navigator>
     </NavigationContainer>
   ))
   .add('Display all days', () => (
-    <RecordMonth {...props} />
+    <RecordMonth
+      {...props}
+      theme={AppTheme}
+    />
   ))

@@ -40,7 +40,7 @@ interface PureProps {
   dateToday: number,
 }
 export const RecordMonthPure: React.FC<PureProps> = ({
-  theme,
+  theme = { colors: { background: 'white' }},
   logsByDay,
   days,
   dateToday,
