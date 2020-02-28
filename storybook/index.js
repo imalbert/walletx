@@ -10,6 +10,7 @@ configure(() => {
   require('../app/components/log-item/log-item.story')
   require('../app/components/record-day/record-day.story')
   require('../app/components/record-month/record-month.story')
+  require('../app/components/log-form/log-form.story')
 }, module);
 
 // Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters

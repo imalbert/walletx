@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { View } from 'react-native'
 
-import { LogFormAdd } from '../components/Log/LogForm.Add'
-import { LogFormEdit } from '../components/Log/LogForm.Edit'
-import { LogForm } from '../components/Log/LogForm'
+import { LogForm } from '../components/log-form'
 
 import { useStore } from '../model/Root'
 import { clone, applySnapshot } from 'mobx-state-tree'
@@ -35,12 +33,8 @@ export const WalletActions = ({ route }) => {
     : Log.create()
 
   navigation.setOptions({
-    headerRight: () => <Appbar.Action icon="check" onPress={onPressSave}/>,
+    headerRight: () => <Appbar.Action icon="pencil" onPress={onPressSave}/>,
   })
 
-  return (
-    <View style={{ flex: 1 }}>
-      <LogForm log={log} />
-    </View>
-  )
+  return <LogForm log={log} />
 }

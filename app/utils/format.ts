@@ -10,3 +10,8 @@ export const dateFmt = (date: string): string => {
 export const currencyFmt = (num, opts = { currency: 'PHP' }) => {
   return `${opts.currency} ${num}`
 }
+
+export const capitalize = (s: string): string => {
+  if (typeof s !== 'string') return ''
+  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
+}
