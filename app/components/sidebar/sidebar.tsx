@@ -13,6 +13,7 @@ import {
   Switch,
   useTheme,
 } from 'react-native-paper'
+import { PickerMonth } from '../picker-month'
 
 export const Sidebar = observer(() => {
   const {app} = useStore()
@@ -41,6 +42,10 @@ export const SidebarPure: React.FC<Props> = ({
   >
     <Divider />
     <View style={styles.infoSection}>
+      <PickerMonth data={['Feb 2020', 'Mar 2020', 'Apr 2020']}/>
+    </View>
+    <Divider />
+    <View style={styles.infoSection}>
       <Text>Toggle dark theme</Text>
       <Switch
         value={theme.dark}
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   infoSection: {
-    padding: 8,
+    height: 48,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
