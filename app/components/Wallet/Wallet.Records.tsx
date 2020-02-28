@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { useTheme } from 'react-native-paper'
 import { useStore } from '../../model/Root'
 
-import { WalletHistory } from './Wallet.History'
+import { RecordDay } from '../record-day'
 import { LOG_TYPES } from '../../model/LogRecord'
 import { currencyFmt } from '../../utils/format'
 
@@ -32,7 +32,7 @@ export const WalletRecords: React.FC<{}> = observer(() => {
           ? totalExpenses += log.amount : totalIncome += log.amount)
 
         return (
-          <WalletHistory
+          <RecordDay
             key={`wallet.record.day-${day}`}
             title={day}
             description={`+ ${currencyFmt(totalIncome)} - ${currencyFmt(totalExpenses)}`}
