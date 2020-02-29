@@ -13,18 +13,20 @@ import {
   Switch,
   useTheme,
 } from 'react-native-paper'
+import { currencyFmt } from '../../utils/format'
 import { PickerMonth } from '../picker-month'
 
 export const Sidebar = observer(() => {
   const {app, record} = useStore()
   const theme = useTheme()
   const logsMoYr = record.getMonthsWithLogs()
-
+  const balance = currencyFmt(record.getBalance())
   return (
     <SidebarPure
       theme={theme}
       onToggleTheme={app.toggleTheme}
       logsMoYr={logsMoYr}
+      balance={balance}
     />
   )
 })
@@ -32,11 +34,13 @@ interface Props {
   theme?: any,
   onToggleTheme : any,
   logsMoYr: string[],
+  balance: string,
 }
 export const SidebarPure: React.FC<Props> = ({
   theme = { colors: { background: 'white' }},
   onToggleTheme,
   logsMoYr,
+  balance,
 }) => (
   <SafeAreaView
     style={{
@@ -44,6 +48,15 @@ export const SidebarPure: React.FC<Props> = ({
       backgroundColor: theme.colors.background,
     }}
   >
+    <Divider />
+    <View style={styles.infoSection}>
+      <Text>
+        Wallet balance
+      </Text>
+      <Text style={{ fontSize: 24 }}>
+        {balance}
+      </Text>
+    </View>
     <Divider />
     <View style={styles.infoSection}>
       <PickerMonth data={logsMoYr}/>
@@ -67,6 +80,8 @@ const styles = StyleSheet.create({
     height: 48,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginLeft: 8,
+    marginRight: 8,
   },
 })

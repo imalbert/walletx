@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { View, StyleSheet, ScrollView } from 'react-native'
-import { useTheme, Text, IconButton } from 'react-native-paper'
+import { useTheme, Text } from 'react-native-paper'
 
 import { useStore } from '../model/Root'
 import { RecordMonth } from '../components/record-month'
@@ -19,12 +19,6 @@ export const WalletLogs = observer(() => {
       {record.logs.length === 0
         ? (
           <ScrollView>
-            <IconButton
-              style={{ alignSelf: 'center' }}
-              icon="pig"
-              size={96}
-              theme={theme}
-            />
             <Text theme={theme} style={{ ...styles.text, fontSize: 24 }}>
               I'm Mitzy,
             </Text>

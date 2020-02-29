@@ -1,17 +1,15 @@
 import React from 'react'
-import { Appbar, withTheme } from 'react-native-paper'
+import { Appbar, useTheme } from 'react-native-paper'
 import { createStackNavigator } from '@react-navigation/stack'
-import { useStore } from '../model/Root'
 
 import { WalletLogs } from '../screens/WalletLogs'
 import { WalletActions } from '../screens/WalletActions'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
-import { currencyFmt } from '../utils/format'
 
 const Stack = createStackNavigator()
 
-export const StackNavigator = withTheme(({ theme }) => {
-  const { record } = useStore()
+export const StackNavigator = () => {
+  const theme = useTheme()
   return (
     <Stack.Navigator
       initialRouteName="My Wallet"
@@ -27,7 +25,7 @@ export const StackNavigator = withTheme(({ theme }) => {
               : scene.route.name
 
           return (
-            <Appbar.Header theme={theme} style={{ height: 84, backgroundColor: theme.colors.background }}>
+            <Appbar.Header theme={theme} style={{ backgroundColor: theme.colors.background }}>
               {previous
                 ? <Appbar.Action icon="close" onPress={navigation.goBack} />
                 : <Appbar.Action
@@ -36,11 +34,18 @@ export const StackNavigator = withTheme(({ theme }) => {
                     onPress={() => ((navigation as any) as DrawerNavigationProp<{}>).openDrawer()}
                   />}
 
-              <Appbar.Content
-                title={title === 'balance' ? currencyFmt(record.getBalance().toString()) : title}
-                subtitle={title === 'balance' ? 'balance' : null}
-                titleStyle={{ fontSize: 24 }}
-              />
+              {title === 'balance'
+                ? <Appbar.Action
+                    style={{ alignSelf: 'center', flexGrow: 1 }}
+                    icon="pig"
+                    size={72}
+                    theme={theme}
+                  />
+                : <Appbar.Content
+                    title={title}
+                    titleStyle={{ fontSize: 24, textAlign: 'justify' }}
+                    style={{ flexGrow: 1, alignItems: 'center' }}
+                  />}
 
               {options.headerRight
                 ? options.headerRight({})
@@ -67,4 +72,4 @@ export const StackNavigator = withTheme(({ theme }) => {
       />
     </Stack.Navigator>
   )
-})
+}
