@@ -5,7 +5,7 @@ import './rn-addons';
 
 // import stories
 configure(() => {
-  require('../app/components/sidebar/sidebar.story')
+  // require('../app/components/sidebar/sidebar.story')
   require('../app/components/currency/currency.story')
   require('../app/components/log-item/log-item.story')
   require('../app/components/record-day/record-day.story')
