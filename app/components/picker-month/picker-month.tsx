@@ -38,7 +38,7 @@ export const PickerMonth: React.FC<Props> = ({
     return moyr
   }, {})
 
-  const series = monthYearSeries[current]
+  const series = monthYearSeries[current] || {}
   return (
     <PickerMonthPure
       theme={theme}
