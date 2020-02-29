@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { View } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import { observer } from 'mobx-react'
-import { useTheme, Theme } from 'react-native-paper'
+import { useTheme, Theme, Text, IconButton } from 'react-native-paper'
 import { useStore } from '../../model/Root'
 
 import { RecordDay } from '../record-day'
@@ -40,12 +40,12 @@ interface PureProps {
   dateToday: number,
 }
 export const RecordMonthPure: React.FC<PureProps> = ({
-  theme = { colors: { background: 'white' }},
+  theme,
   logsByDay,
   days,
   dateToday,
 }) => (
-  <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+  <ScrollView contentContainerStyle={{ backgroundColor: theme.colors.background }}>
     {days.map(day => {
       let totalExpenses = 0; let totalIncome = 0
       const logs = logsByDay[day]
@@ -62,5 +62,5 @@ export const RecordMonthPure: React.FC<PureProps> = ({
         />
       )
     })}
-  </View>
+  </ScrollView>
 )

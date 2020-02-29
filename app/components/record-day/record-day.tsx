@@ -47,7 +47,7 @@ export const RecordDayPure: React.FC<PureProps & Props> = ({
   logs,
 }) => {
   return (
-    <List.Section theme={theme}>
+    <List.Section style={{ flex: 1 }} theme={theme}>
       <List.Accordion {...controls}
         title={`${isItToday ? 'Today, ' : ''}${title}`}
         titleStyle={{ fontSize: 24 }}

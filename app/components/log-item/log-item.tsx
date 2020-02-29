@@ -46,7 +46,7 @@ export const LogItemPure: React.FC<Pure> = ({
   theme,
   navigation
 }) => (
-  <>
+  <View>
     <TouchableRipple
       theme={theme}
       onPress={() => toggleEdit(!isEditing)}
@@ -80,5 +80,5 @@ export const LogItemPure: React.FC<Pure> = ({
         </Button>
       </View>
     }
-    </>
+  </View>
 )

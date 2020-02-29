@@ -32,9 +32,10 @@ const capitalize = (s: string): string => {
 
 interface Props {
   log: LogModelType,
+  onlyIncome?: boolean,
 }
 
-export const LogForm: React.FC<Props> = ({ log }) => {
+export const LogForm: React.FC<Props> = ({ log, onlyIncome }) => {
   const theme = useTheme()
   const endOfMonth = new Date(log.date.getFullYear(), log.date.getMonth() + 1, 0).getDate()
   const daysArray = []
@@ -46,6 +47,7 @@ export const LogForm: React.FC<Props> = ({ log }) => {
       theme={theme}
       log={log}
       daysArray={daysArray}
+      onlyIncome={onlyIncome}
     />
   )
 }
@@ -54,11 +56,13 @@ interface PureProps {
   theme: Theme,
   log: LogModelType,
   daysArray: number[],
+  onlyIncome?: boolean,
 }
 const LogFormPure: React.FC<PureProps> = observer(({
   theme = { colors: { background: 'white' }},
   log,
   daysArray,
+  onlyIncome,
 }) => {
   const amountInput = useRef(null)
   const categScroll = useRef(null)
@@ -90,6 +94,8 @@ const LogFormPure: React.FC<PureProps> = observer(({
     return () => { clearTimeout(timeout) }
   }, [])
 
+  const categories = onlyIncome ? [LOG_CATEGORY.INCOME] : Object.values(LOG_CATEGORY)
+
   return (
     <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag" style={{ backgroundColor: theme.colors.background }}>
     <TextInput
@@ -103,7 +109,7 @@ const LogFormPure: React.FC<PureProps> = observer(({
     />
     <View style={styles.categView}>
       <ScrollView horizontal keyboardShouldPersistTaps="always" showsHorizontalScrollIndicator={false} ref={categScroll}>
-        {Object.values(LOG_CATEGORY).map(categ => {
+        {categories.map(categ => {
           return (
             <TouchableOpacity key={`logform-category-${categ}`}
               style={styles.categItem}
