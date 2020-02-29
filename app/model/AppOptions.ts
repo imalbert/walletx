@@ -1,4 +1,8 @@
 import { types } from 'mobx-state-tree'
+import {
+  dt,
+  MMM_DD,
+} from '../utils/date'
 
 export const AppOptions = types.model('Theme')
   .props({
@@ -11,5 +15,10 @@ export const AppOptions = types.model('Theme')
     },
     changeMonth: (newMonth: string) => {
       self.month = newMonth
-    }
+    },
+  }))
+  .views(self => ({
+    getMonthDateObj: () => dt
+      .fromFormat(self.month, MMM_DD)
+      .toJSDate()
   }))

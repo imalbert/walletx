@@ -1,9 +1,12 @@
-import { DateTime as dt } from 'luxon'
+import {
+  dt,
+  MMM_DD,
+} from './date'
 // import * as Localization from 'expo-localization'
 
 export const dateFmt = (
   date: string,
-  format: string = 'LLL dd'
+  format: string = MMM_DD
 ): string => {
   const fromDate = dt.fromISO(date)
 

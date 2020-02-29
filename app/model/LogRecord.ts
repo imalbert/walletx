@@ -1,4 +1,4 @@
-import { dateFmt } from '../utils/format'
+import { dateFmt, MMM_YYYY } from '../utils'
 import {
   types,
   getParent,
@@ -100,7 +100,7 @@ export const Record = types.model('Record')
     getMonthsWithLogs() {
       const moyr = {}
       self.logs.forEach(logs => {
-        moyr[dateFmt(logs.date.toISOString(), 'MMM y')] = true
+        moyr[dateFmt(logs.date.toISOString(), MMM_YYYY)] = true
       })
 
       return Object.keys(moyr)

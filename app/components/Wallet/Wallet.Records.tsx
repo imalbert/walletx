@@ -1,18 +1,20 @@
 import React from 'react'
-
 import { View } from 'react-native'
 import { observer } from 'mobx-react'
 import { useTheme } from 'react-native-paper'
-import { useStore } from '../../model/Root'
 
-import { RecordDay } from '../record-day'
+import { useStore } from '../../model/Root'
 import { LOG_TYPES } from '../../model/LogRecord'
 import { currencyFmt } from '../../utils/format'
 
+import { RecordDay } from '../record-day'
+
 export const WalletRecords: React.FC<{}> = observer(() => {
   const theme = useTheme()
-  const { record } = useStore()
-  const logsByDay = record.getLogsByDayOfMonth()
+  const { record, app } = useStore()
+
+  const monthNow = app.getMonthDateObj()
+  const logsByDay = record.getLogsByDayOfMonth(monthNow)
   const days = Object.keys(logsByDay).sort((a, b) => {
     // Later dates are placed to the front of list
     return (a < b) ? 1 : (a > b) ? -1 : 0

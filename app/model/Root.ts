@@ -5,7 +5,7 @@ import { Record } from './LogRecord'
 import { AppOptions } from './AppOptions'
 
 import * as Storage from '../utils/storage'
-import { dateFmt } from '../utils/format'
+import { dateFmt, MMM_YYYY } from '../utils'
 
 const WalletModel = types.model({
   record: Record,
@@ -19,7 +19,7 @@ export async function setupRootStore() {
   let data: any
   const defaultOpts = {
     theme: 'light',
-    month: dateFmt(new Date().toISOString(), 'MMM y'),
+    month: dateFmt(new Date().toISOString(), MMM_YYYY),
   }
 
   try {
@@ -32,6 +32,8 @@ export async function setupRootStore() {
     console.info('Snapshot loaded', data)
     rootStore = WalletModel.create({
       ...data,
+      // override saved state with temporary app defaults
+      // remove later when final
       app: AppOptions.create(defaultOpts),
     })
   } catch (e) {
