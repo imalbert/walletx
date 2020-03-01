@@ -36,7 +36,7 @@ export const WalletActions = ({ route }) => {
       : Log.create()
 
   navigation.setOptions({
-    headerRight: () => <Appbar.Action icon="pencil" onPress={onPressSave}/>,
+    headerRight: () => <Appbar.Action icon="check" onPress={onPressSave}/>,
   })
 
   return <LogForm log={log} onlyIncome={isFirstLog} />

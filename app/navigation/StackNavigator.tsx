@@ -38,7 +38,7 @@ export const StackNavigator = () => {
                 ? <Appbar.Action
                     style={{ alignSelf: 'center', flexGrow: 1 }}
                     icon="pig"
-                    size={72}
+                    size={48}
                     theme={theme}
                   />
                 : <Appbar.Content
@@ -50,7 +50,7 @@ export const StackNavigator = () => {
               {options.headerRight
                 ? options.headerRight({})
                 : <Appbar.Action
-                    icon="plus"
+                    icon="plus-minus"
                     size={36}
                     onPress={() => navigation.navigate('WalletActions') }
                   />}
