@@ -27,24 +27,36 @@ export const PickerMonth: React.FC<Props> = ({
   const [current, changeCurrent] = useState(app.month)
 
   let prev = null
-  const monthYearSeries = data.reduce((moyr, current) => {
+  if (data.indexOf(app.month) < 0) {
+    data.push(current)
+  }
+  console.log(data, data.indexOf(app.month))
+  const monthSeries = data.reduce((series, month) => {
     if (!prev) {
-      moyr[current] = { prev: null, next: null }
+      series[month] = { prev: null, next: null }
     } else {
-      moyr[prev].next = current
-      moyr[current] = { prev, next: null }
+      series[prev].next = month
+      series[month] = { prev, next: null }
     }
-    prev = current
-    return moyr
+    prev = month
+    return series
   }, {})
 
-  const series = monthYearSeries[current] || {}
+  console.log(monthSeries, current)
+  const series = monthSeries[current] || {}
+  console.log(series)
   return (
     <PickerMonthPure
       theme={theme}
       label={current}
-      onPressPrev={series.prev ? () => changeCurrent(series.prev) : null}
-      onPressNext={series.next ? () => changeCurrent(series.next) : null}
+      onPressPrev={series.prev ? () => {
+        app.changeMonth(series.prev)
+        changeCurrent(series.prev)
+       } : null}
+      onPressNext={series.next ? () => {
+        app.changeMonth(series.next)
+        changeCurrent(series.next)
+       } : null}
     />
   )
 }

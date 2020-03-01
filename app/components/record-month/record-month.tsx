@@ -9,10 +9,33 @@ import { RecordDay } from '../record-day'
 import { LOG_TYPES } from '../../model/LogRecord'
 import { currencyFmt } from '../../utils/format'
 
+const styles = StyleSheet.create({
+  text: { fontSize: 14, textAlign: 'center', margin: 8 }
+})
 export const RecordMonth: React.FC<{}> = observer(() => {
   const theme = useTheme()
-  const { record } = useStore()
-  const logsByDay = record.getLogsByDayOfMonth()
+  const { record, app } = useStore()
+  const monthNow = app.getMonthDateObj()
+  const logsByDay = record.getLogsByDayOfMonth(monthNow)
+
+  const logsThisMonth = Object.keys(logsByDay).length
+  console.log(`Logs this month of ${app.month} ${logsThisMonth}`)
+  if (logsThisMonth === 0) {
+    return (
+      <ScrollView>
+        <Text theme={theme} style={{ ...styles.text, fontSize: 24 }}>
+          {`It's ${app.month}!`}
+        </Text>
+        <Text theme={theme} style={styles.text}>
+          Good work!
+        </Text>
+        <Text theme={theme} style={styles.text}>
+          By the way, you can switch months from the sidebar.
+        </Text>
+      </ScrollView>
+    )
+  }
+
   const days = Object.keys(logsByDay).sort((a, b) => {
     // Later dates are placed to the front of list
     return (a < b) ? 1 : (a > b) ? -1 : 0
