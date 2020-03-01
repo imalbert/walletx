@@ -59,7 +59,7 @@ export const SidebarPure: React.FC<Props> = ({
     </View>
     <Divider />
     <View style={styles.infoSection}>
-      <PickerMonth data={logsMoYr}/>
+      <PickerMonth />
     </View>
     <Divider />
     <View style={styles.infoSection}>

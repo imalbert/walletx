@@ -11,44 +11,22 @@ import {
   Theme,
 } from 'react-native-paper'
 
+import { dateFmt, MMM_YYYY } from '../../utils'
 import { useStore } from '../../model/Root'
 
-interface Props {
-  data: string[],
-  currentMonth?: string,
-}
-export const PickerMonth: React.FC<Props> = ({
-  data,
-  currentMonth = data[data.length - 1], // MMM YYYY format
-}) => {
+interface Props {}
+export const PickerMonth: React.FC<Props> = () => {
   const theme = useTheme()
-  const { app } = useStore()
-  console.log(app.month)
-  const [current, changeCurrent] = useState(app.month)
+  const { record, app } = useStore()
+  const [selectedMonth, changeCurrent] = useState(app.month)
+  const thisMonth = dateFmt(new Date().toISOString(), MMM_YYYY)
+  const monthSeries = record.getMonthSeriesFromLogs(thisMonth)
 
-  let prev = null
-  if (data.indexOf(app.month) < 0) {
-    data.push(current)
-  }
-  console.log(data, data.indexOf(app.month))
-  const monthSeries = data.reduce((series, month) => {
-    if (!prev) {
-      series[month] = { prev: null, next: null }
-    } else {
-      series[prev].next = month
-      series[month] = { prev, next: null }
-    }
-    prev = month
-    return series
-  }, {})
-
-  console.log(monthSeries, current)
-  const series = monthSeries[current] || {}
-  console.log(series)
+  const series = monthSeries[selectedMonth] || {}
   return (
     <PickerMonthPure
       theme={theme}
-      label={current}
+      label={selectedMonth}
       onPressPrev={series.prev ? () => {
         app.changeMonth(series.prev)
         changeCurrent(series.prev)

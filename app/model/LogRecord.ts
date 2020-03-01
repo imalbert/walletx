@@ -104,6 +104,43 @@ export const Record = types.model('Record')
       })
 
       return Object.keys(moyr)
+    },
+    getMonthSeriesFromLogs(currentMonth) {
+
+      return self.logs
+        .reduce((months, log) => {
+          const month = dateFmt(log.date.toISOString(), MMM_YYYY)
+          if (!months.includes(month)) {
+            months.push(month)
+          }
+          return months
+        }, [])
+        .reduce((series, month, idx, arr) => {
+          console.log(arr)
+          if (arr.indexOf(currentMonth) < 0) {
+            arr.push(currentMonth)
+          }
+          return arr
+        }, [])
+        .reduce((series, month, idx, arr) => {
+          if (!series.prev) {
+            return {
+              [month]: { prev: null, next: null },
+              prev: month
+            }
+          } else {
+            series[series.prev].next = month
+            series[month] = { prev: series.prev, next: null }
+            series.prev = month
+          }
+
+          if (idx === arr.length - 1) {
+            const { prev, ...months } = series
+            return months
+          } else {
+            return series
+          }
+        }, {})
     }
   }))
   .views(self => ({
