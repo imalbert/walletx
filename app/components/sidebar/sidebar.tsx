@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
-  SafeAreaView,
   View,
-  StyleSheet
+  StyleSheet,
+  StatusBar,
 } from 'react-native'
 
 import { observer } from 'mobx-react'
@@ -10,57 +10,64 @@ import { useStore } from '../../model/Root'
 import {
   Text,
   Divider,
+  IconButton,
   Switch,
   useTheme,
 } from 'react-native-paper'
 import { currencyFmt } from '../../utils/format'
 import { PickerMonth } from '../picker-month'
+import { Chart } from '../chart-line/chart-line'
+import { dt } from '../../utils/date'
 
 export const Sidebar = observer(() => {
   const {app, record} = useStore()
   const theme = useTheme()
-  const logsMoYr = record.getMonthsWithLogs()
   const balance = currencyFmt(record.getBalance())
+  const jsDateNow = dt.fromFormat(app.month, 'MMM y').toJSDate()
+  const chartData = record.getLogTotalsByDayOfMonth(jsDateNow)
   return (
     <SidebarPure
       theme={theme}
       onToggleTheme={app.toggleTheme}
-      logsMoYr={logsMoYr}
       balance={balance}
+      chartData={chartData}
     />
   )
 })
 interface Props {
   theme?: any,
   onToggleTheme : any,
-  logsMoYr: string[],
   balance: string,
+  chartData?: any,
 }
 export const SidebarPure: React.FC<Props> = ({
   theme = { colors: { background: 'white' }},
   onToggleTheme,
-  logsMoYr,
   balance,
+  chartData,
 }) => (
-  <SafeAreaView
+  <View
     style={{
       ...styles.infoView,
       backgroundColor: theme.colors.background,
+      paddingTop: StatusBar.currentHeight,
     }}
   >
-    <Divider />
     <View style={styles.infoSection}>
-      <Text>
-        Wallet balance
-      </Text>
-      <Text style={{ fontSize: 24 }}>
-        {balance}
-      </Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ fontSize: 12 }}>balance</Text>
+        <Text style={{ fontSize: 24 }}>
+          {balance}
+        </Text>
+      </View>
     </View>
     <Divider />
     <View style={styles.infoSection}>
       <PickerMonth />
     </View>
+
+    <Chart {...chartData} />
+
     <Divider />
     <View style={styles.infoSection}>
       <Text>Toggle dark theme</Text>
@@ -69,7 +76,7 @@ export const SidebarPure: React.FC<Props> = ({
         onValueChange={onToggleTheme}
       />
     </View>
-  </SafeAreaView>
+  </View>
 )
 const styles = StyleSheet.create({
   infoView: {
@@ -77,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   infoSection: {
-    height: 48,
+    height: 64,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

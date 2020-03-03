@@ -158,6 +158,29 @@ export const Record = types.model('Record')
 
         return coll
       }, {})
+    },
+    getLogTotalsByDayOfMonth(today: Date = new Date()) {
+      const logs = self.getLogsByMonth(today)
+      let maxTotal = 0
+
+      const dayTotals = logs.reduce((coll, item) => {
+        const prop = dateFmt(item.date.toISOString())
+
+        if (!coll[prop]) {
+          coll[prop] = item.amount
+        } else {
+          coll[prop] = coll[prop] + item.amount
+        }
+
+        maxTotal = coll[prop] > maxTotal ? coll[prop] : maxTotal
+
+        return coll
+      }, {})
+
+      return {
+        maxTotal,
+        data: Object.keys(dayTotals).map(day => ({ day, total: dayTotals[day] })),
+      }
     }
   }))
   .actions(self => {
