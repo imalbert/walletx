@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { Svg, Polyline, Text as SvgText, TSpan } from 'react-native-svg'
 import { View, Text } from 'react-native'
+import { useTheme, Colors } from 'react-native-paper'
 
 import { toSvgPolylinePts, toSvgTSpanPts } from '../../utils/svg'
 
@@ -10,6 +11,7 @@ interface ChartProps {
   maxTotal: number,
 }
 export const Chart: React.FC<ChartProps> = ({ data, maxTotal }) => {
+  const theme = useTheme()
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   const points = toSvgPolylinePts({
@@ -22,19 +24,16 @@ export const Chart: React.FC<ChartProps> = ({ data, maxTotal }) => {
   })
   const labels = toSvgTSpanPts({ data, width, height })
 
-  console.log(data)
-  console.log('w: ', width, 'h: ', height)
-  console.log('points: ', points, 'max ', maxTotal)
+  // console.log(data)
+  // console.log('w: ', width, 'h: ', height)
+  // console.log('points: ', points, 'max ', maxTotal)
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: theme.colors.background,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: 'white',
-        borderWidth: 1,
-        margin: 20,
       }}
       onLayout={(el) => {
         if (el.nativeEvent) {
@@ -48,6 +47,8 @@ export const Chart: React.FC<ChartProps> = ({ data, maxTotal }) => {
         labels={labels}
         width={width}
         height={height}
+        stroke={theme.colors.primary}
+        strokeWidth={'1'}
       />
     </View>
   )
@@ -58,12 +59,16 @@ interface Props {
   labels: any,
   width: number,
   height: number,
+  stroke?: string,
+  strokeWidth?: string,
 }
 export const Line = ({
   points: polyPoints,
   labels,
   width = 0,
   height = 0,
+  stroke = 'white',
+  strokeWidth = '1',
 }: Props) => {
   if (!width || !height) {
     return (
@@ -76,8 +81,8 @@ export const Line = ({
       <Polyline
         points={polyPoints}
         fill="none"
-        stroke="white"
-        strokeWidth="1"
+        stroke={stroke}
+        strokeWidth={strokeWidth}
       />
       {/* <SvgText
         y={height-20}
