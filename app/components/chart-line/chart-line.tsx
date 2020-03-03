@@ -5,26 +5,26 @@ import { View, Text } from 'react-native'
 
 import { toSvgPolylinePts, toSvgTSpanPts } from '../../utils/svg'
 
-const dummyData = {
-  data: [
-    { day: '0', total: 400 },
-    { day: '1', total: 220 },
-    { day: '2', total: 0 },
-    { day: '3', total: 400 },
-    { day: '4', total: 150 },
-    { day: '5', total: 75 },
-    { day: '6', total: 0 },
-    { day: '7', total: 400 },
-  ],
+interface ChartProps {
+  data?: { day: string, total: number }[],
+  maxTotal: number,
 }
-export const Chart = () => {
+export const Chart: React.FC<ChartProps> = ({ data, maxTotal }) => {
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
-  const points = toSvgPolylinePts({ ...dummyData, width, height, topData: 400, paddingX: 20, paddingY: 40 })
-  const labels = toSvgTSpanPts({ ...dummyData, width, height })
+  const points = toSvgPolylinePts({
+    data,
+    width,
+    height,
+    topData: maxTotal,
+    paddingX: 20,
+    paddingY: 40,
+  })
+  const labels = toSvgTSpanPts({ data, width, height })
 
+  console.log(data)
   console.log('w: ', width, 'h: ', height)
-  console.log('points: ', points)
+  console.log('points: ', points, 'max ', maxTotal)
   return (
     <View
       style={{
@@ -74,14 +74,12 @@ export const Line = ({
   return (
     <Svg width={width} height={height}>
       <Polyline
-        // points="0,407 240,0"
         points={polyPoints}
-        // points="10%,10% 20%,20%"
         fill="none"
         stroke="white"
         strokeWidth="1"
       />
-      <SvgText
+      {/* <SvgText
         y={height-20}
         dx="0 25 25 25 25 25 25 25 25"
         textAnchor="middle"
@@ -95,7 +93,7 @@ export const Line = ({
         <TSpan fill="white">5</TSpan>
         <TSpan fill="white">6</TSpan>
         <TSpan fill="white">7</TSpan>
-      </SvgText>
+      </SvgText> */}
     </Svg>
   )
 }

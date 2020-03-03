@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   SafeAreaView,
   View,
@@ -16,32 +16,34 @@ import {
 import { currencyFmt } from '../../utils/format'
 import { PickerMonth } from '../picker-month'
 import { Chart } from '../chart-line/chart-line'
+import { dt } from '../../utils/date'
 
 export const Sidebar = observer(() => {
   const {app, record} = useStore()
   const theme = useTheme()
-  const logsMoYr = record.getMonthsWithLogs()
   const balance = currencyFmt(record.getBalance())
+  const jsDateNow = dt.fromFormat(app.month, 'MMM y').toJSDate()
+  const chartData = record.getLogTotalsByDayOfMonth(jsDateNow)
   return (
     <SidebarPure
       theme={theme}
       onToggleTheme={app.toggleTheme}
-      logsMoYr={logsMoYr}
       balance={balance}
+      chartData={chartData}
     />
   )
 })
 interface Props {
   theme?: any,
   onToggleTheme : any,
-  logsMoYr: string[],
   balance: string,
+  chartData?: any,
 }
 export const SidebarPure: React.FC<Props> = ({
   theme = { colors: { background: 'white' }},
   onToggleTheme,
-  logsMoYr,
   balance,
+  chartData,
 }) => (
   <SafeAreaView
     style={{
@@ -49,7 +51,7 @@ export const SidebarPure: React.FC<Props> = ({
       backgroundColor: theme.colors.background,
     }}
   >
-    <Chart />
+    <Chart {...chartData} />
     <Divider />
     <View style={styles.infoSection}>
       <Text>
