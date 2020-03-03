@@ -15,6 +15,7 @@ import {
 } from 'react-native-paper'
 import { currencyFmt } from '../../utils/format'
 import { PickerMonth } from '../picker-month'
+import { Chart } from '../chart-line/chart-line'
 
 export const Sidebar = observer(() => {
   const {app, record} = useStore()
@@ -48,6 +49,7 @@ export const SidebarPure: React.FC<Props> = ({
       backgroundColor: theme.colors.background,
     }}
   >
+    <Chart />
     <Divider />
     <View style={styles.infoSection}>
       <Text>

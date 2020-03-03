@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Chart - Line display data 1`] = `
+<Text>
+  Loading
+</Text>
+`;
+
 exports[`Storyshots Currency format PHP currency 1`] = `
 <Text
   style={
@@ -7273,3 +7279,5 @@ exports[`Storyshots RecordMonth Display all days 1`] = `
   </RNCSafeAreaView>
 </View>
 `;
+
+exports[`Storyshots test defined 1`] = `null`;
