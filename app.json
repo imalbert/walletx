@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Mitzy",
-    "slug": "Mitzy",
+    "name": "Percy's Wallet",
+    "slug": "Percy's Wallet",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -11,6 +11,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
+    "primaryColor": "#ffffff",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -23,6 +24,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "versionCode": 1,
+      "permissions": []
+    },
     "ios": {
       "supportsTablet": true
     }

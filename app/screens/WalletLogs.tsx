@@ -20,7 +20,7 @@ export const WalletLogs = observer(() => {
         ? (
           <ScrollView>
             <Text theme={theme} style={{ ...styles.text, fontSize: 24 }}>
-              I'm Mitzy,
+              I'm Percy,
             </Text>
             <Text theme={theme} style={styles.text}>
               pleased to meet you!
