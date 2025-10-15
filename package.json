@@ -22,7 +22,7 @@
     "@react-navigation/material-bottom-tabs": "^5.0.5",
     "@react-navigation/native": "^5.0.5",
     "@react-navigation/stack": "^5.0.5",
-    "expo": "~36.0.0",
+    "expo": "~48.0.0",
     "expo-localization": "~8.0.0",
     "luxon": "^1.22.0",
     "mobx": "^5.15.4",
